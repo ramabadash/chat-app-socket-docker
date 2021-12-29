@@ -9,6 +9,7 @@ import { User } from '../../../server/@types/db/types';
 
 // Components
 import UsersList from './UsersList';
+import SendMessage from './SendMessage';
 
 function App() {
   /***** STATE *****/
@@ -40,6 +41,7 @@ function App() {
   return (
     <div className='App'>
       <h1>Chat app </h1>
+      <UsersList users={connectedUsers} setRoom={setRoom} />
       <SendMessage room={room} username={username} socketRef={socketRef} />
     </div>
   );

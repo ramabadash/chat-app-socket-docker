@@ -32,11 +32,11 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
   socket.on('message', ({ name, message }) => {
-    io.emit('messageBack', { name, message });
+    io.emit('replay', { name, message });
   });
 
   socket.on('disconnect', () => {
-    io.emit('messageBack', { name: 'wow', message: 'render' });
+    io.emit('replay', { name: 'wow', message: 'render' });
   });
 });
 

@@ -14,6 +14,7 @@ function App() {
   /***** STATE *****/
   const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
+  const [room, setRoom] = useState('');
   console.log({ connectedUsers });
 
   /***** REFS *****/
@@ -39,11 +40,7 @@ function App() {
   return (
     <div className='App'>
       <h1>Chat app </h1>
-      <input
-        onChange={e => setUsername(e.target.value)}
-        placeholder='enter your name'
-      />
-      <UsersList users={connectedUsers} />
+      <SendMessage room={room} username={username} socketRef={socketRef} />
     </div>
   );
 }

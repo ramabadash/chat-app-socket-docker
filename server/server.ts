@@ -42,12 +42,18 @@ io.on('connection', socket => {
   USERS.push({ id: socket.id });
   console.log(USERS);
 
+  // Update users about the login
+  socket.broadcast.emit('replay', {
+    name: socket.id,
+    message: 'Enter to chat',
+  });
+
   socket.on('message', ({ name, message }) => {
     io.emit('replay', { name, message });
   });
 
   socket.on('disconnect', () => {
-    io.emit('replay', { name: 'wow', message: 'render' });
+    io.emit('replay', { name: socket.id, message: 'disconnected' });
     // Remove from USERS arr
     const userIndex = USERS.indexOf({ id: socket.id }); // delete the user that disconnected
     USERS.splice(userIndex, 1);

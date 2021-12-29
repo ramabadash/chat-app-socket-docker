@@ -4,6 +4,7 @@ import { io, Socket } from 'socket.io-client';
 import {
   ServerToClientEvents,
   ClientToServerEvents,
+  Message,
 } from '../../../server/@types/socket/types';
 import { User } from '../../../server/@types/db/types';
 
@@ -16,6 +17,7 @@ function App() {
   const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
   const [room, setRoom] = useState('');
+  const [chat, setChat] = useState<Message[]>([]);
   console.log({ connectedUsers });
 
   /***** REFS *****/
@@ -28,7 +30,7 @@ function App() {
     });
 
     socketRef.current.on('replay', ({ name, message }) => {
-      console.log({ name, message });
+      setChat(prevMessages => [...prevMessages, { name, message }]);
     });
 
     socketRef.current.on('userActivity', users => {
@@ -41,6 +43,15 @@ function App() {
   return (
     <div className='App'>
       <h1>Chat app </h1>
+
+      <div className='chat'>
+        <h3>CHAT</h3>
+        <ul className='chat-list'>
+          {chat.map(({ name, message }) => (
+            <li>{`${name}: ${message}`}</li>
+          ))}
+        </ul>
+      </div>
       <UsersList users={connectedUsers} setRoom={setRoom} />
       <SendMessage room={room} username={username} socketRef={socketRef} />
     </div>

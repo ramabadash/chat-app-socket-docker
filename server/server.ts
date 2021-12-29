@@ -19,7 +19,9 @@ const io = new Server<
   ServerToClientEvents,
   InterServerEvents,
   SocketData
->(http);
+>(http, {
+  cors: { origin: ['http://localhost:3000'] },
+});
 
 // Middlewares
 app.use(cors());
@@ -31,6 +33,8 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', socket => {
+  console.log('connected user');
+
   socket.on('message', ({ name, message }) => {
     io.emit('replay', { name, message });
   });

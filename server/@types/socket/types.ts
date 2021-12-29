@@ -1,16 +1,19 @@
-interface ServerToClientEvents {
-  replay: ({ name, message }: { name: string; message: string }) => void;
+import { User } from '../db/types';
+
+export interface ServerToClientEvents {
+  replay: ({ name, message }: Message) => void;
+  userActivity: (db: User[]) => void;
 }
 
-interface ClientToServerEvents {
-  message: ({ name, message }: { name: string; message: string }) => void;
+export interface ClientToServerEvents {
+  message: ({ name, message }: Message) => void;
 }
 
-interface InterServerEvents {
+export interface InterServerEvents {
   ping: () => void;
 }
 
-interface SocketData {
+interface Message {
   name: string;
-  age: number;
+  message: string;
 }

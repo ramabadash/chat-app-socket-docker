@@ -4,12 +4,11 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 
 // Import types
-const {
+import {
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
-  SocketData,
-} = require('./@types/socket/types');
+} from './@types/socket/types';
 
 // DB
 import USERS from './db/users';
@@ -20,8 +19,7 @@ const http = require('http').createServer(app);
 const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
-  InterServerEvents,
-  SocketData
+  InterServerEvents
 >(http, {
   cors: { origin: ['http://localhost:3000'] },
 });
@@ -47,6 +45,8 @@ io.on('connection', socket => {
     name: socket.id,
     message: 'Enter to chat',
   });
+  // Send user activity details
+  io.emit('userActivity', USERS);
 
   socket.on('message', ({ name, message }) => {
     io.emit('replay', { name, message });
@@ -57,7 +57,8 @@ io.on('connection', socket => {
     // Remove from USERS arr
     const userIndex = USERS.indexOf({ id: socket.id }); // delete the user that disconnected
     USERS.splice(userIndex, 1);
-
+    // Send user activity details
+    io.emit('userActivity', USERS);
     console.log({ USERS });
   });
 });

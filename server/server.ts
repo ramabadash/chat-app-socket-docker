@@ -11,6 +11,9 @@ const {
   SocketData,
 } = require('./@types/socket/types');
 
+// DB
+import USERS from './db/users';
+
 const app = express();
 const PORT: Number = 4000;
 const http = require('http').createServer(app);
@@ -34,6 +37,10 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
   console.log('connected user');
+  console.log({ socket });
+
+  USERS.push({ id: socket.id });
+  console.log(USERS);
 
   socket.on('message', ({ name, message }) => {
     io.emit('replay', { name, message });
@@ -41,6 +48,11 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {
     io.emit('replay', { name: 'wow', message: 'render' });
+    // Remove from USERS arr
+    const userIndex = USERS.indexOf({ id: socket.id }); // delete the user that disconnected
+    USERS.splice(userIndex, 1);
+
+    console.log({ USERS });
   });
 });
 

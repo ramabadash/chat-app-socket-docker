@@ -6,10 +6,12 @@ import {
   ClientToServerEvents,
 } from '../../../server/@types/socket/types';
 
+import { User } from '../../../server/@types/db/types';
+
 function App() {
   /***** STATE *****/
-  const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
-  const [username, setUsername] = useState();
+  const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
+  const [username, setUsername] = useState('rama');
   console.log({ connectedUsers });
 
   /***** REFS *****/
@@ -17,14 +19,17 @@ function App() {
 
   /***** EFFECT *****/
   useEffect(() => {
-    socketRef.current = io(`http://localhost:4000/?name=${username}`);
+    socketRef.current = io(`http://localhost:4000/`, {
+      auth: { username },
+    });
 
     socketRef.current.on('replay', ({ name, message }) => {
       console.log({ name, message });
     });
 
     socketRef.current.on('userActivity', users => {
-      setConnectedUsers(users.map(({ id }: { id: string }) => id)); // Update users list
+      setConnectedUsers(users);
+      // setConnectedUsers(users.map(({ name }: { name: string }) => name)); // Update users list
       return;
     });
   }, []);

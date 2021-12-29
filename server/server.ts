@@ -35,9 +35,9 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
   console.log('connected user');
-  console.log({ socket });
+  console.log(socket.handshake.auth);
 
-  USERS.push({ id: socket.id });
+  USERS.push({ id: socket.id, name: socket.handshake.auth.username });
   console.log(USERS);
 
   // Update users about the login
@@ -55,7 +55,10 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     io.emit('replay', { name: socket.id, message: 'disconnected' });
     // Remove from USERS arr
-    const userIndex = USERS.indexOf({ id: socket.id }); // delete the user that disconnected
+    const userIndex = USERS.indexOf({
+      id: socket.id,
+      name: socket.handshake.auth.username,
+    }); // delete the user that disconnected
     USERS.splice(userIndex, 1);
     // Send user activity details
     io.emit('userActivity', USERS);

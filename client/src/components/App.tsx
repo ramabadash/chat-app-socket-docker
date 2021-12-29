@@ -5,13 +5,15 @@ import {
   ServerToClientEvents,
   ClientToServerEvents,
 } from '../../../server/@types/socket/types';
-
 import { User } from '../../../server/@types/db/types';
+
+// Components
+import UsersList from './UsersList';
 
 function App() {
   /***** STATE *****/
   const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
-  const [username, setUsername] = useState('rama');
+  const [username, setUsername] = useState(`user ${connectedUsers.length}`);
   console.log({ connectedUsers });
 
   /***** REFS *****/
@@ -37,6 +39,11 @@ function App() {
   return (
     <div className='App'>
       <h1>Chat app </h1>
+      <input
+        onChange={e => setUsername(e.target.value)}
+        placeholder='enter your name'
+      />
+      <UsersList users={connectedUsers} />
     </div>
   );
 }

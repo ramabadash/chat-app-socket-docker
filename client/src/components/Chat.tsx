@@ -15,11 +15,11 @@ function Chat() {
   return (
     <div className='chat'>
       <ul className='chat-list'>
-        {chat.map(({ name, message }) => (
+        {chat.map(({ name, message, timeStamp }) => (
           <li key={nanoid()} className={`${username === name ? 'me' : 'you'}`}>
             <div className='entete'>
               <span className={'status green'}></span>
-              <h2>{name}</h2> <h3>{'time'}</h3>
+              <h2>{name}</h2> <h3>{timeStamp}</h3>
             </div>
             <div className='message'>{message}</div>
           </li>

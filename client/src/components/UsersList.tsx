@@ -3,6 +3,8 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 /***** ACTIONS *****/
 import { setMessageDestination } from '../reducers/chatReducer';
+/***** STYLE *****/
+import '../styles/UsersList.css';
 
 /* ---------------------- COMPONENT ----------------------  */
 
@@ -11,6 +13,8 @@ function UsersList() {
   const connectedUsers = useAppSelector(
     ({ chatReducer }) => chatReducer.connectedUsers
   );
+
+  const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
@@ -26,7 +30,17 @@ function UsersList() {
               dispatch(setMessageDestination({ room: id }));
             }}
           >
-            {name}
+            <div>
+              <h2>{username === name ? '(You)' : name}</h2>
+              <h3>
+                <span className='status green'></span>
+                online
+              </h3>
+            </div>
+            <img
+              src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png'
+              alt='user'
+            />
           </li>
         ))}
       </ul>

@@ -1,21 +1,28 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
+/***** STYLE *****/
+import '../styles/Chat.css';
 
 /* ---------------------- COMPONENT ----------------------  */
 
 function Chat() {
   /***** STATE *****/
   const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
+  const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
   return (
     <div className='chat'>
-      <h3>CHAT</h3>
       <ul className='chat-list'>
         {chat.map(({ name, message }) => (
-          <li key={nanoid()}>{`${name}: ${message}`}</li>
+          <li key={nanoid()} className={`${username === name ? 'me' : 'you'}`}>
+            <div className='entete'>
+              <span className={'status green'}></span>
+              <h2>{name}</h2> <h3>{'time'}</h3>
+            </div>
+            <div className='message'>{message}</div>
+          </li>
         ))}
       </ul>
     </div>

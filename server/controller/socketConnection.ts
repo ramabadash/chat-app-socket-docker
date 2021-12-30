@@ -4,6 +4,9 @@ import USERS from '../db/users';
 import { io } from '../server';
 // Types
 import { SocketType } from '../@types/socket/types';
+// Functions
+import { onMessage } from './socketOnMessage';
+import { onDisconnected } from './socketDisconnected';
 
 /***** CONNECTION *****/
 export const onConnection = (socket: SocketType) => {
@@ -21,26 +24,9 @@ export const onConnection = (socket: SocketType) => {
   // Send user activity details
   io.emit('userActivity', USERS);
 
-  socket.on('message', ({ name, message, to }) => {
-    console.log('to', to);
-
-    if (!to) {
-      io.emit('replay', { name, message });
-    } else {
-      io.to(to).emit('replay', { name, message });
-    }
-  });
+  socket.on('message', onMessage); // On message event reply to the client
 
   socket.on('disconnect', () => {
-    io.emit('replay', { name, message: 'disconnected' });
-    // Remove from USERS arr
-    const userIndex = USERS.indexOf({
-      id: socket.id,
-      name,
-    }); // delete the user that disconnected
-    USERS.splice(userIndex, 1);
-    // Send user activity details
-    io.emit('userActivity', USERS);
-    console.log({ USERS });
+    onDisconnected(name, socket); // On user disconnecting
   });
 };

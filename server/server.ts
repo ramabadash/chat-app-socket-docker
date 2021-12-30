@@ -21,6 +21,7 @@ export const io = new Server<
 >(http, {
   cors: { origin: ['http://localhost:3000'] },
 });
+// Functions
 import { onConnection } from './controller/socketConnection';
 
 // Middlewares

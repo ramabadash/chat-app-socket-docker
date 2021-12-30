@@ -35,7 +35,7 @@ function SendMessage({
   };
 
   return (
-    <div>
+    <div className='send-message-container'>
       <input
         placeholder='Enter your message here'
         onChange={e => {

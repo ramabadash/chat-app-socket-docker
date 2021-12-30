@@ -4,6 +4,7 @@ import { io, Socket } from 'socket.io-client';
 import {
   ServerToClientEvents,
   ClientToServerEvents,
+  Message,
 } from '../../../server/@types/socket/types';
 
 function SendMessage({
@@ -18,11 +19,7 @@ function SendMessage({
   >;
 }) {
   /***** STATE *****/
-  const [message, setMessage] = useState<{
-    name: string;
-    message: string;
-    to: string;
-  }>({
+  const [message, setMessage] = useState<Message>({
     name: username,
     message: '',
     to: room,

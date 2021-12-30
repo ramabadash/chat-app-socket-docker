@@ -18,9 +18,11 @@ export const chatSlice = createSlice({
     updateUsers: (state, { payload }: PayloadAction<{ users: User[] }>) => {
       return { ...state, connectedUsers: payload.users };
     },
+
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {
       return { ...state, chat: [...state.chat, payload.message] };
     },
+
     setMessageDestination: (
       state,
       { payload }: PayloadAction<{ room: string }>

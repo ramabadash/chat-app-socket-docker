@@ -16,7 +16,7 @@ import { updateUsers, getMessage } from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 
-/* ---------------------------------------- */
+/* ---------------------- COMPONENT ----------------------  */
 
 function App() {
   /***** FUNCTIONS *****/

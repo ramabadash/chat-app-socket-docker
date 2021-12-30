@@ -1,5 +1,9 @@
 import React from 'react';
+
+/***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
+
+/* ---------------------- COMPONENT ----------------------  */
 
 function Chat() {
   /***** STATE *****/

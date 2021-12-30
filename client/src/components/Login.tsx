@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// Redux
+/***** REDUX *****/
 import { useAppDispatch } from '../app/hooks';
-// Actions
+/***** ACTIONS *****/
 import { userLogin } from '../reducers/chatReducer';
+
+/* ---------------------- COMPONENT ----------------------  */
 
 function Login() {
   /***** STATE *****/

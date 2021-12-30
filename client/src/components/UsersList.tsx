@@ -1,7 +1,10 @@
 import React from 'react';
+/***** REDUX *****/
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-// Actions
+/***** ACTIONS *****/
 import { setMessageDestination } from '../reducers/chatReducer';
+
+/* ---------------------- COMPONENT ----------------------  */
 
 function UsersList() {
   /***** STATE *****/

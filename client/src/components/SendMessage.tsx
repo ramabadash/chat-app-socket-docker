@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+/***** IO *****/
 import { Socket } from 'socket.io-client';
+/***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
-// Types
+/***** TYPES *****/
 import {
   ServerToClientEvents,
   ClientToServerEvents,
@@ -13,6 +15,8 @@ interface SendMessageProp {
     Socket<ServerToClientEvents, ClientToServerEvents> | undefined
   >;
 }
+
+/* ---------------------- COMPONENT ----------------------  */
 
 function SendMessage({ socketRef }: SendMessageProp) {
   /***** STATE *****/

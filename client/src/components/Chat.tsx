@@ -1,4 +1,5 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
@@ -14,7 +15,7 @@ function Chat() {
       <h3>CHAT</h3>
       <ul className='chat-list'>
         {chat.map(({ name, message }) => (
-          <li>{`${name}: ${message}`}</li>
+          <li key={nanoid()}>{`${name}: ${message}`}</li>
         ))}
       </ul>
     </div>

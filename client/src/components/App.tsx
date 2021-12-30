@@ -10,8 +10,11 @@ import {
 // Components
 import UsersList from './UsersList';
 import SendMessage from './SendMessage';
+import Chat from './Chat';
 // Actions
 import { updateUsers, getMessage } from '../reducers/chatReducer';
+// Style
+import '../styles/App.css';
 
 function App() {
   /***** STATE *****/
@@ -21,7 +24,6 @@ function App() {
   const connectedUsers = useAppSelector(
     ({ chatReducer }) => chatReducer.connectedUsers
   );
-  const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
 
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
   const [room, setRoom] = useState('');
@@ -47,20 +49,14 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
+    <>
       <h1>Chat app </h1>
-
-      <div className='chat'>
-        <h3>CHAT</h3>
-        <ul className='chat-list'>
-          {chat.map(({ name, message }) => (
-            <li>{`${name}: ${message}`}</li>
-          ))}
-        </ul>
+      <div className='App'>
+        <Chat />
+        <UsersList setRoom={setRoom} />
+        <SendMessage room={room} username={username} socketRef={socketRef} />
       </div>
-      <UsersList setRoom={setRoom} />
-      <SendMessage room={room} username={username} socketRef={socketRef} />
-    </div>
+    </>
   );
 }
 

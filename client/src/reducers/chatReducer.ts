@@ -21,9 +21,22 @@ export const chatSlice = createSlice({
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {
       return { ...state, chat: [...state.chat, payload.message] };
     },
+    setMessageDestination: (
+      state,
+      { payload }: PayloadAction<{ room: string }>
+    ) => {
+      const roomToChange = state.room
+        ? state.room === payload.room
+          ? ''
+          : payload.room
+        : payload.room;
+
+      return { ...state, room: roomToChange };
+    },
   },
 });
 
-export const { updateUsers, getMessage } = chatSlice.actions;
+export const { updateUsers, getMessage, setMessageDestination } =
+  chatSlice.actions;
 
 export default chatSlice.reducer;

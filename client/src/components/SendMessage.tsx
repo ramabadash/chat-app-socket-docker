@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
+import { useAppSelector } from '../app/hooks';
 // Types
 import {
   ServerToClientEvents,
@@ -7,18 +8,17 @@ import {
   Message,
 } from '../../../server/@types/socket/types';
 
-function SendMessage({
-  room,
-  username,
-  socketRef,
-}: {
-  room: string;
+interface SendMessageProp {
   username: string;
   socketRef: React.MutableRefObject<
     Socket<ServerToClientEvents, ClientToServerEvents> | undefined
   >;
-}) {
+}
+
+function SendMessage({ username, socketRef }: SendMessageProp) {
   /***** STATE *****/
+  const room = useAppSelector(({ chatReducer }) => chatReducer.room);
+
   const [message, setMessage] = useState<Message>({
     name: username,
     message: '',
@@ -38,6 +38,7 @@ function SendMessage({
     <div className='send-message-container'>
       <input
         placeholder='Enter your message here'
+        value={message.message}
         onChange={e => {
           setMessage({
             name: username,
@@ -46,7 +47,8 @@ function SendMessage({
           });
         }}
       />
-      <p> To {room}</p>
+      <span> To {room ? room : 'All'}</span>
+      {'  '}
       <button onClick={e => onMessageSubmit(e)}>Send</button>
     </div>
   );

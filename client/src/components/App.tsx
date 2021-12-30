@@ -24,11 +24,7 @@ function App() {
   const connectedUsers = useAppSelector(
     ({ chatReducer }) => chatReducer.connectedUsers
   );
-
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
-  const [room, setRoom] = useState('');
-
-  console.log({ connectedUsers });
 
   /***** REFS *****/
   let socketRef = useRef<Socket<ServerToClientEvents, ClientToServerEvents>>();
@@ -53,8 +49,8 @@ function App() {
       <h1>Chat app </h1>
       <div className='App'>
         <Chat />
-        <UsersList setRoom={setRoom} />
-        <SendMessage room={room} username={username} socketRef={socketRef} />
+        <UsersList />
+        <SendMessage username={username} socketRef={socketRef} />
       </div>
     </>
   );

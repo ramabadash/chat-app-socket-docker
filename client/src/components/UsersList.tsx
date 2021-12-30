@@ -1,15 +1,16 @@
 import React from 'react';
-import { useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+// Actions
+import { setMessageDestination } from '../reducers/chatReducer';
 
-function UsersList({
-  setRoom,
-}: {
-  setRoom: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function UsersList() {
   /***** STATE *****/
   const connectedUsers = useAppSelector(
     ({ chatReducer }) => chatReducer.connectedUsers
   );
+
+  /***** FUNCTIONS *****/
+  const dispatch = useAppDispatch();
 
   return (
     <div className='users-list-container'>
@@ -19,7 +20,7 @@ function UsersList({
           <li
             key={id}
             onClick={() => {
-              setRoom(id);
+              dispatch(setMessageDestination({ room: id }));
             }}
           >
             {name}

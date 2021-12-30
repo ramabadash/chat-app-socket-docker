@@ -6,7 +6,6 @@ import { io, Socket } from 'socket.io-client';
 import {
   ServerToClientEvents,
   ClientToServerEvents,
-  Message,
 } from '../../../server/@types/socket/types';
 // Components
 import UsersList from './UsersList';
@@ -22,7 +21,6 @@ function App() {
   const connectedUsers = useAppSelector(
     ({ chatReducer }) => chatReducer.connectedUsers
   );
-
   const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
 
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
@@ -60,7 +58,7 @@ function App() {
           ))}
         </ul>
       </div>
-      <UsersList users={connectedUsers} setRoom={setRoom} />
+      <UsersList setRoom={setRoom} />
       <SendMessage room={room} username={username} socketRef={socketRef} />
     </div>
   );

@@ -1,18 +1,21 @@
 import React from 'react';
-import { User } from '../../../server/@types/db/types';
+import { useAppSelector } from '../app/hooks';
 
 function UsersList({
-  users,
   setRoom,
 }: {
-  users: User[];
   setRoom: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  /***** STATE *****/
+  const connectedUsers = useAppSelector(
+    ({ chatReducer }) => chatReducer.connectedUsers
+  );
+
   return (
     <div>
       <h3>USERS:</h3>
       <ul>
-        {users.map(({ id, name }) => (
+        {connectedUsers.map(({ id, name }) => (
           <li
             key={id}
             onClick={() => {

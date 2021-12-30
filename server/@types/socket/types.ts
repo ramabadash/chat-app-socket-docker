@@ -1,4 +1,5 @@
 import { User } from '../db/types';
+import { Socket } from 'socket.io';
 
 export interface ServerToClientEvents {
   replay: ({ name, message, to }: Message) => void;
@@ -18,3 +19,9 @@ export interface Message {
   message: string;
   to?: string;
 }
+
+export type SocketType = Socket<
+  ClientToServerEvents,
+  ServerToClientEvents,
+  InterServerEvents
+>;

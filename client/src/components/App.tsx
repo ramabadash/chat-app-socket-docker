@@ -8,12 +8,11 @@ import {
   ClientToServerEvents,
   Message,
 } from '../../../server/@types/socket/types';
-import { User } from '../../../server/@types/db/types';
 // Components
 import UsersList from './UsersList';
 import SendMessage from './SendMessage';
 // Actions
-import { updateUsers } from '../reducers/chatReducer';
+import { updateUsers, getMessage } from '../reducers/chatReducer';
 
 function App() {
   /***** STATE *****/
@@ -24,9 +23,11 @@ function App() {
     ({ chatReducer }) => chatReducer.connectedUsers
   );
 
+  const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
+
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
   const [room, setRoom] = useState('');
-  const [chat, setChat] = useState<Message[]>([]);
+
   console.log({ connectedUsers });
 
   /***** REFS *****/
@@ -39,7 +40,7 @@ function App() {
     });
 
     socketRef.current.on('replay', ({ name, message }) => {
-      setChat(prevMessages => [...prevMessages, { name, message }]);
+      dispatch(getMessage({ message: { name, message } }));
     });
 
     socketRef.current.on('userActivity', users => {

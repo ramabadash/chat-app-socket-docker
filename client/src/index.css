@@ -5,4 +5,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgba(1, 39, 95, 0.671);
+  text-align: center;
 }

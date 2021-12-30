@@ -1,0 +1,40 @@
+.message-textarea {
+  resize: none !important;
+  background-color: rgba(255, 85, 23, 0.836);
+  color: whitesmoke;
+  width: 90%;
+  height: 100%;
+}
+.message-textarea::-webkit-input-placeholder {
+  color: whitesmoke;
+  font-size: 1.5em;
+}
+
+.send-btn {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: rgba(87, 28, 6, 0.836);
+  cursor: pointer;
+  border: 5px solid;
+  padding: 0.25em 0.5em;
+  margin: 3px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.send-btn:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .send-btn {
+    padding: 0.25em 0.75em;
+  }
+}

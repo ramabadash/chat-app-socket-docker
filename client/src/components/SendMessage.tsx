@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Socket } from 'socket.io-client';
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
+/***** STYLE *****/
+import '../styles/SendMessage.css';
 /***** TYPES *****/
 import {
   ServerToClientEvents,
@@ -41,7 +43,8 @@ function SendMessage({ socketRef }: SendMessageProp) {
 
   return (
     <div className='send-message-container'>
-      <input
+      <textarea
+        className='message-textarea'
         placeholder='Enter your message here'
         value={message.message}
         onChange={e => {
@@ -52,9 +55,11 @@ function SendMessage({ socketRef }: SendMessageProp) {
           });
         }}
       />
-      <span> To {room ? room : 'All'}</span>
-      {'  '}
-      <button onClick={e => onMessageSubmit(e)}>Send</button>
+      {/* <span> To {room ? room : 'All'}</span>
+      {'  '} */}
+      <button className='send-btn' onClick={e => onMessageSubmit(e)}>
+        Send
+      </button>
     </div>
   );
 }

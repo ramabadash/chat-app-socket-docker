@@ -15,6 +15,10 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
+    userLogin: (state, { payload }: PayloadAction<{ username: string }>) => {
+      return { ...state, username: payload.username };
+    },
+
     updateUsers: (state, { payload }: PayloadAction<{ users: User[] }>) => {
       return { ...state, connectedUsers: payload.users };
     },
@@ -38,7 +42,7 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { updateUsers, getMessage, setMessageDestination } =
+export const { userLogin, updateUsers, getMessage, setMessageDestination } =
   chatSlice.actions;
 
 export default chatSlice.reducer;

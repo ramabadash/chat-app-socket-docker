@@ -1,30 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-// io
+/***** IO *****/
 import { io, Socket } from 'socket.io-client';
-// Types
+/***** TYPES *****/
 import {
   ServerToClientEvents,
   ClientToServerEvents,
 } from '../../../server/@types/socket/types';
-// Components
+/***** COMPONENTS *****/
 import UsersList from './UsersList';
 import SendMessage from './SendMessage';
 import Chat from './Chat';
-// Actions
+/***** ACTIONS *****/
 import { updateUsers, getMessage } from '../reducers/chatReducer';
-// Style
+/***** STYLES *****/
 import '../styles/App.css';
 
+/* ---------------------------------------- */
+
 function App() {
-  /***** STATE *****/
+  /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
 
   /***** STATE *****/
-  const connectedUsers = useAppSelector(
-    ({ chatReducer }) => chatReducer.connectedUsers
-  );
-  const [username, setUsername] = useState(`user ${connectedUsers.length}`);
+  const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
   /***** REFS *****/
   let socketRef = useRef<Socket<ServerToClientEvents, ClientToServerEvents>>();
@@ -50,7 +49,7 @@ function App() {
       <div className='App'>
         <Chat />
         <UsersList />
-        <SendMessage username={username} socketRef={socketRef} />
+        <SendMessage socketRef={socketRef} />
       </div>
     </>
   );

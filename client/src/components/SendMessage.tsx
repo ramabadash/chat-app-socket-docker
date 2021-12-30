@@ -9,15 +9,16 @@ import {
 } from '../../../server/@types/socket/types';
 
 interface SendMessageProp {
-  username: string;
   socketRef: React.MutableRefObject<
     Socket<ServerToClientEvents, ClientToServerEvents> | undefined
   >;
 }
 
-function SendMessage({ username, socketRef }: SendMessageProp) {
+function SendMessage({ socketRef }: SendMessageProp) {
   /***** STATE *****/
   const room = useAppSelector(({ chatReducer }) => chatReducer.room);
+
+  const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
   const [message, setMessage] = useState<Message>({
     name: username,

@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+// io
 import { io, Socket } from 'socket.io-client';
 // Types
 import {
@@ -7,14 +9,21 @@ import {
   Message,
 } from '../../../server/@types/socket/types';
 import { User } from '../../../server/@types/db/types';
-
 // Components
 import UsersList from './UsersList';
 import SendMessage from './SendMessage';
+// Actions
+import { updateUsers } from '../reducers/chatReducer';
 
 function App() {
   /***** STATE *****/
-  const [connectedUsers, setConnectedUsers] = useState<User[]>([]);
+  const dispatch = useAppDispatch();
+
+  /***** STATE *****/
+  const connectedUsers = useAppSelector(
+    ({ chatReducer }) => chatReducer.connectedUsers
+  );
+
   const [username, setUsername] = useState(`user ${connectedUsers.length}`);
   const [room, setRoom] = useState('');
   const [chat, setChat] = useState<Message[]>([]);
@@ -34,9 +43,7 @@ function App() {
     });
 
     socketRef.current.on('userActivity', users => {
-      setConnectedUsers(users);
-      // setConnectedUsers(users.map(({ name }: { name: string }) => name)); // Update users list
-      return;
+      dispatch(updateUsers({ users })); // Update online users list on the state
     });
   }, []);
 

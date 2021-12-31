@@ -11,6 +11,9 @@ function Chat() {
   /***** STATE *****/
   const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
+  const typingUser = useAppSelector(
+    ({ chatReducer }) => chatReducer.typingUser
+  );
 
   return (
     <div className='chat'>
@@ -25,6 +28,7 @@ function Chat() {
           </li>
         ))}
       </ul>
+      <div>{typingUser ? <p>{typingUser} is typing ...</p> : ''}</div>
     </div>
   );
 }

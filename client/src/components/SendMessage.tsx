@@ -32,13 +32,41 @@ function SendMessage({ socketRef }: SendMessageProp) {
     to: room,
   });
 
+  const [stopTypingTimeout, setStopTypingTimeout] =
+    useState<NodeJS.Timeout | null>(null);
+
   /***** FUNCTIONS *****/
+  // Send message
   const onMessageSubmit = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     socketRef.current!.emit('message', message);
     setMessage({ message: '', name: username, to: room });
+
+    setStopTypingTimeout(null); // Stop typing
+  };
+
+  // On typing
+  const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage({
+      name: username,
+      message: e.target.value,
+      to: room,
+    });
+
+    // cancel typing
+    if (stopTypingTimeout) {
+      setStopTypingTimeout(null);
+    }
+    // Send typing event
+    socketRef.current!.emit('userTyping', { name: username, type: true });
+    // cancel typing if no change for 3 seconds
+    setStopTypingTimeout(
+      setTimeout(() => {
+        socketRef.current!.emit('userTyping', { name: username, type: false });
+      }, 4000)
+    );
   };
 
   return (
@@ -48,11 +76,7 @@ function SendMessage({ socketRef }: SendMessageProp) {
         placeholder='Enter your message here'
         value={message.message}
         onChange={e => {
-          setMessage({
-            name: username,
-            message: e.target.value,
-            to: room,
-          });
+          handleTyping(e);
         }}
       />
       {/* <span> To {room ? room : 'All'}</span>

@@ -19,7 +19,7 @@ export const onConnection = (socket: SocketType) => {
   // Update users about the login by message
   socket.broadcast.emit('replay', {
     name,
-    message: 'Enter to chat',
+    message: 'Enter to the chat',
   });
 
   io.emit('userActivity', USERS); // Send user activity details

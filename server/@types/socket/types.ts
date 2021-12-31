@@ -4,10 +4,12 @@ import { Socket } from 'socket.io';
 export interface ServerToClientEvents {
   replay: ({ name, message, to, timeStamp }: Message) => void;
   userActivity: (db: User[]) => void;
+  userTypingReplay: ({ name, type }: { name: string; type: boolean }) => void;
 }
 
 export interface ClientToServerEvents {
   message: ({ name, message, to }: Message) => void;
+  userTyping: ({ name, type }: { name: string; type: boolean }) => void;
 }
 
 export interface InterServerEvents {

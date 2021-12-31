@@ -2,15 +2,14 @@ import { io } from '../server';
 import { Message } from '../@types/socket/types';
 const moment = require('moment');
 
-export const onMessage = ({ name, message, to }: Message) => {
-  console.log('to', to);
+export const onMessage = (message: Message, id: string) => {
+  const messageObj = { name: message.name, message: message.message };
 
-  if (!to) {
-    io.emit('replay', { name, message, timeStamp: moment().format('lll') });
+  if (!message.to) {
+    io.emit('replay', { ...messageObj, timeStamp: moment().format('lll') });
   } else {
-    io.to(to).emit('replay', {
-      name,
-      message,
+    io.to([message.to, id]).emit('replay', {
+      ...messageObj,
       timeStamp: moment().format('lll'),
     });
   }

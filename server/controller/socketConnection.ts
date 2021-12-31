@@ -25,7 +25,11 @@ export const onConnection = (socket: SocketType) => {
   io.emit('userActivity', USERS); // Send user activity details
 
   /***** ON MESSAGE *****/
-  socket.on('message', onMessage); // On message event reply to the client
+  // On message event reply to the client
+  socket.on('message', ({ name, message, to }) => {
+    const messageObj = { name, message, to };
+    onMessage(messageObj, socket.id);
+  });
 
   /***** ON TYPING *****/
   socket.on('userTyping', ({ name, type }) => {

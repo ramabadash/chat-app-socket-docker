@@ -7,4 +7,5 @@ export interface ChatState {
   connectedUsers: User[];
   room: string;
   chat: Message[];
+  typingUser: string;
 }

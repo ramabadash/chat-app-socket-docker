@@ -9,6 +9,7 @@ export const initialState: ChatState = {
   connectedUsers: [],
   room: '',
   chat: [],
+  typingUser: '',
 };
 
 export const chatSlice = createSlice({
@@ -39,10 +40,26 @@ export const chatSlice = createSlice({
 
       return { ...state, room: roomToChange };
     },
+
+    setTypingUser: (
+      state,
+      { payload }: PayloadAction<{ name: string; type: boolean }>
+    ) => {
+      if (payload.type) {
+        return { ...state, typingUser: payload.name };
+      } else {
+        return { ...state, typingUser: '' };
+      }
+    },
   },
 });
 
-export const { userLogin, updateUsers, getMessage, setMessageDestination } =
-  chatSlice.actions;
+export const {
+  userLogin,
+  updateUsers,
+  getMessage,
+  setMessageDestination,
+  setTypingUser,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

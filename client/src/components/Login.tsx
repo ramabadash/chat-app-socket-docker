@@ -5,11 +5,13 @@ import axios from 'axios';
 import { useAppDispatch } from '../app/hooks';
 /***** ACTIONS *****/
 import { userLogin } from '../reducers/chatReducer';
-// Style
+/***** COMPONENTS *****/
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
+import MenuAppBar from './MenuAppBar';
+/***** STYLE *****/
 import '../styles/Login.css';
 
 /* ---------------------- COMPONENT ----------------------  */
@@ -39,29 +41,32 @@ function Login() {
   };
 
   return (
-    <div className='login-container'>
-      <h1>Please login:</h1>
+    <>
+      <MenuAppBar />
+      <div className='login-container'>
+        <h1>Please login:</h1>
 
-      <TextField
-        id='input-with-icon-textfield'
-        label='Enter user name here'
-        value={username}
-        onChange={e => {
-          setUsername(e.target.value);
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position='start' className='input-adornment'>
-              <AccountCircle className='user-icon' />
-            </InputAdornment>
-          ),
-        }}
-        variant='standard'
-      />
-      <Button className='login-btn' variant='outlined' onClick={setUserName}>
-        Login
-      </Button>
-    </div>
+        <TextField
+          id='input-with-icon-textfield'
+          label='Enter user name here'
+          value={username}
+          onChange={e => {
+            setUsername(e.target.value);
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start' className='input-adornment'>
+                <AccountCircle className='user-icon' />
+              </InputAdornment>
+            ),
+          }}
+          variant='standard'
+        />
+        <Button className='login-btn' variant='outlined' onClick={setUserName}>
+          Login
+        </Button>
+      </div>
+    </>
   );
 }
 

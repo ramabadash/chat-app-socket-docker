@@ -21,7 +21,6 @@ function UsersList() {
 
   return (
     <div className='users-list-container'>
-      <h3>USERS:</h3>
       <ul>
         {connectedUsers.map(({ id, name }) => (
           <li

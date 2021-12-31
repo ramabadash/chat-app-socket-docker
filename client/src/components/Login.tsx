@@ -5,6 +5,12 @@ import axios from 'axios';
 import { useAppDispatch } from '../app/hooks';
 /***** ACTIONS *****/
 import { userLogin } from '../reducers/chatReducer';
+// Style
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Button from '@mui/material/Button';
+import '../styles/Login.css';
 
 /* ---------------------- COMPONENT ----------------------  */
 
@@ -33,16 +39,28 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Welcome to the chat:</h1>
-      <input
+    <div className='login-container'>
+      <h1>Please login:</h1>
+
+      <TextField
+        id='input-with-icon-textfield'
+        label='Enter user name here'
         value={username}
-        placeholder='Enter your user name'
         onChange={e => {
           setUsername(e.target.value);
         }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position='start' className='input-adornment'>
+              <AccountCircle className='user-icon' />
+            </InputAdornment>
+          ),
+        }}
+        variant='standard'
       />
-      <button onClick={setUserName}>Login</button>
+      <Button className='login-btn' variant='outlined' onClick={setUserName}>
+        Login
+      </Button>
     </div>
   );
 }

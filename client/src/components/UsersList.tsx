@@ -29,6 +29,10 @@ function UsersList() {
               dispatch(setMessageDestination({ room: id }));
             }}
           >
+            <img
+              src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png'
+              alt='user'
+            />
             <div>
               <h2>{username === name ? '(You)' : name}</h2>
               <h3>
@@ -36,10 +40,6 @@ function UsersList() {
                 online
               </h3>
             </div>
-            <img
-              src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png'
-              alt='user'
-            />
           </li>
         ))}
       </ul>

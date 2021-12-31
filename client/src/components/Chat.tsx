@@ -35,8 +35,6 @@ function Chat() {
     <div className='chat' ref={messageEl}>
       <ul className='chat-list'>
         {chat.map(({ name, message, timeStamp, to }) => {
-          console.log(to);
-
           // Message from a user
           if (timeStamp) {
             return (

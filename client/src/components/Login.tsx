@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 /***** REDUX *****/
 import { useAppDispatch } from '../app/hooks';
 /***** ACTIONS *****/
@@ -16,9 +17,19 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const setUserName = () => {
-    dispatch(userLogin({ username }));
-    navigate('/chat');
+  const setUserName = async () => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:4000/users/${username}`
+      );
+      if (data === username) {
+        dispatch(userLogin({ username }));
+        navigate('/chat');
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      setUsername('');
+    }
   };
 
   return (

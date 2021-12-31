@@ -44,7 +44,9 @@ function SendMessage({ socketRef }: SendMessageProp) {
     socketRef.current!.emit('message', message);
     setMessage({ message: '', name: username, to: room });
 
-    setStopTypingTimeout(null); // Stop typing
+    // Stop typing
+    setStopTypingTimeout(null);
+    socketRef.current!.emit('userTyping', { name: username, type: false });
   };
 
   // On typing

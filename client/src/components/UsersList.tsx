@@ -16,6 +16,8 @@ function UsersList() {
 
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
+  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room);
+
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
 
@@ -27,6 +29,7 @@ function UsersList() {
             return (
               <li
                 key={id}
+                className={`${currentRoom === id ? 'active' : ''}`}
                 onClick={() => {
                   dispatch(setMessageDestination({ room: id }));
                 }}

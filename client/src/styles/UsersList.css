@@ -10,9 +10,14 @@
 .users-list-container li {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 10px 0;
+  cursor: pointer;
 }
 .users-list-container li:hover {
   background-color: #5e616a;
+}
+
+.active {
+  background-color: #3e4a6b;
 }
 h2,
 h3 {

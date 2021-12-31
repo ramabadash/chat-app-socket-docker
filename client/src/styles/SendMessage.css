@@ -12,32 +12,15 @@
   font-size: 1em;
   font-family: 'PT Sans Narrow', sans-serif !important;
 }
-
-.send-btn {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: rgba(87, 28, 6, 0.836);
+#send-btn {
+  font-size: 3em;
   cursor: pointer;
-  border: 5px solid;
-  padding: 0.25em 0.5em;
-  margin: 3px;
-  position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  margin: auto;
+  color: rgba(255, 85, 23, 0.836);
+  padding: 0.25em;
 }
 
-.send-btn:active {
-  box-shadow: 0px 0px 0px 0px;
-  top: 5px;
-  left: 5px;
-}
-
-@media (min-width: 768px) {
-  .send-btn {
-    padding: 0.25em 0.75em;
-  }
+#send-btn:hover {
+  background-color: rgba(245, 245, 245, 0.137);
+  border-radius: 50%;
 }

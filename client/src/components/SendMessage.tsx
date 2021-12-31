@@ -38,7 +38,7 @@ function SendMessage({ socketRef }: SendMessageProp) {
   /***** FUNCTIONS *****/
   // Send message
   const onMessageSubmit = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
     e.preventDefault();
     socketRef.current!.emit('message', message);
@@ -83,9 +83,13 @@ function SendMessage({ socketRef }: SendMessageProp) {
       />
       {/* <span> To {room ? room : 'All'}</span>
       {'  '} */}
-      <button className='send-btn' onClick={e => onMessageSubmit(e)}>
-        Send
-      </button>
+      <span
+        id='send-btn'
+        className='material-icons'
+        onClick={e => onMessageSubmit(e)}
+      >
+        send
+      </span>
     </div>
   );
 }

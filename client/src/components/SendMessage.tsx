@@ -11,6 +11,7 @@ import {
   ClientToServerEvents,
   Message,
 } from '../../../server/@types/socket/types';
+import { logDOM } from '@testing-library/react';
 
 interface SendMessageProp {
   socketRef: React.MutableRefObject<
@@ -38,15 +39,21 @@ function SendMessage({ socketRef }: SendMessageProp) {
   /***** FUNCTIONS *****/
   // Send message
   const onMessageSubmit = (
-    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+    e:
+      | React.MouseEvent<HTMLSpanElement, MouseEvent>
+      | React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     e.preventDefault();
-    socketRef.current!.emit('message', message);
-    setMessage({ message: '', name: username, to: room });
+    if (message.message) {
+      socketRef.current!.emit('message', message);
+      setMessage({ message: '', name: username, to: room });
 
-    // Stop typing
-    setStopTypingTimeout(null);
-    socketRef.current!.emit('userTyping', { name: username, type: false });
+      // Stop typing
+      setStopTypingTimeout(null);
+      socketRef.current!.emit('userTyping', { name: username, type: false });
+    } else {
+      console.log("Can't send empty messages"); // TODO - error message
+    }
   };
 
   // On typing
@@ -79,6 +86,11 @@ function SendMessage({ socketRef }: SendMessageProp) {
         value={message.message}
         onChange={e => {
           handleTyping(e);
+        }}
+        onKeyPress={e => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            onMessageSubmit(e);
+          }
         }}
       />
       {/* <span> To {room ? room : 'All'}</span>

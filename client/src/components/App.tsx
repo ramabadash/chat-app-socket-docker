@@ -49,8 +49,8 @@ function App() {
         auth: { username },
       });
 
-      socketRef.current.on('replay', ({ name, message, timeStamp }) => {
-        dispatch(getMessage({ message: { name, message, timeStamp } }));
+      socketRef.current.on('replay', ({ name, message, timeStamp, to }) => {
+        dispatch(getMessage({ message: { name, message, timeStamp, to } }));
       });
 
       socketRef.current.on('userActivity', users => {

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 /***** IO *****/
 import { io, Socket } from 'socket.io-client';
@@ -26,6 +27,7 @@ function App() {
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
   /***** STATE *****/
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
@@ -33,22 +35,31 @@ function App() {
   let socketRef = useRef<Socket<ServerToClientEvents, ClientToServerEvents>>();
 
   /***** EFFECT *****/
+
   useEffect(() => {
-    socketRef.current = io(`http://localhost:4000/`, {
-      auth: { username },
-    });
+    if (!username) {
+      navigate('/');
+    }
+  }, [username]);
 
-    socketRef.current.on('replay', ({ name, message, timeStamp }) => {
-      dispatch(getMessage({ message: { name, message, timeStamp } }));
-    });
+  useEffect(() => {
+    if (username) {
+      socketRef.current = io(`http://localhost:4000/`, {
+        auth: { username },
+      });
 
-    socketRef.current.on('userActivity', users => {
-      dispatch(updateUsers({ users })); // Update online users list on the state
-    });
+      socketRef.current.on('replay', ({ name, message, timeStamp }) => {
+        dispatch(getMessage({ message: { name, message, timeStamp } }));
+      });
 
-    socketRef.current.on('userTypingReplay', ({ name, type }) => {
-      dispatch(setTypingUser({ name, type }));
-    });
+      socketRef.current.on('userActivity', users => {
+        dispatch(updateUsers({ users })); // Update online users list on the state
+      });
+
+      socketRef.current.on('userTypingReplay', ({ name, type }) => {
+        dispatch(setTypingUser({ name, type }));
+      });
+    }
   }, []);
 
   return (

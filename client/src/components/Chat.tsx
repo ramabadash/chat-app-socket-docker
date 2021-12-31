@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
+/***** COMPONENTS *****/
+import ChatUserMessage from './ChatUserMessage';
 /***** STYLE *****/
 import '../styles/Chat.css';
 
@@ -38,18 +40,12 @@ function Chat() {
           // Message from a user
           if (timeStamp) {
             return (
-              <li
-                key={nanoid()}
-                className={`${username === name ? 'me' : 'you'}`}
-              >
-                <div className='entete'>
-                  <span className={'status green'}></span>
-                  <h2>{name}</h2>{' '}
-                  <h3>{to ? `[To ${to} - Private Message ]` : '[ To All ]'}</h3>{' '}
-                  <h2>{timeStamp}</h2>
-                </div>
-                <div className='message'>{message}</div>
-              </li>
+              <ChatUserMessage
+                name={name}
+                message={message}
+                timeStamp={timeStamp}
+                to={to}
+              />
             );
           } else {
             // User enter or left the chat message

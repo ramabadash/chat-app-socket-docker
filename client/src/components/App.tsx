@@ -12,7 +12,11 @@ import UsersList from './UsersList';
 import SendMessage from './SendMessage';
 import Chat from './Chat';
 /***** ACTIONS *****/
-import { updateUsers, getMessage } from '../reducers/chatReducer';
+import {
+  updateUsers,
+  getMessage,
+  setTypingUser,
+} from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 
@@ -40,6 +44,10 @@ function App() {
 
     socketRef.current.on('userActivity', users => {
       dispatch(updateUsers({ users })); // Update online users list on the state
+    });
+
+    socketRef.current.on('userTypingReplay', ({ name, type }) => {
+      dispatch(setTypingUser({ name, type }));
     });
   }, []);
 

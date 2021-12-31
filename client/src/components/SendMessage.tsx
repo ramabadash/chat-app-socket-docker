@@ -11,7 +11,6 @@ import {
   ClientToServerEvents,
   Message,
 } from '../../../server/@types/socket/types';
-import { logDOM } from '@testing-library/react';
 
 interface SendMessageProp {
   socketRef: React.MutableRefObject<
@@ -93,8 +92,6 @@ function SendMessage({ socketRef }: SendMessageProp) {
           }
         }}
       />
-      {/* <span> To {room ? room : 'All'}</span>
-      {'  '} */}
       <span
         id='send-btn'
         className='material-icons'

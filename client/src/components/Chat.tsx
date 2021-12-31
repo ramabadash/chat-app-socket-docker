@@ -34,7 +34,9 @@ function Chat() {
   return (
     <div className='chat' ref={messageEl}>
       <ul className='chat-list'>
-        {chat.map(({ name, message, timeStamp }) => {
+        {chat.map(({ name, message, timeStamp, to }) => {
+          console.log(to);
+
           // Message from a user
           if (timeStamp) {
             return (
@@ -44,7 +46,9 @@ function Chat() {
               >
                 <div className='entete'>
                   <span className={'status green'}></span>
-                  <h2>{name}</h2> <h3>{timeStamp}</h3>
+                  <h2>{name}</h2>{' '}
+                  <h3>{to ? `[To ${to} - Private Message ]` : '[ To All ]'}</h3>{' '}
+                  <h2>{timeStamp}</h2>
                 </div>
                 <div className='message'>{message}</div>
               </li>

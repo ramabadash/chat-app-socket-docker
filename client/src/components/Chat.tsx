@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { nanoid } from 'nanoid';
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
 /***** COMPONENTS *****/
 import ChatUserMessage from './ChatUserMessage';
+import ChatUserActivity from './ChatUserActivity';
 /***** STYLE *****/
 import '../styles/Chat.css';
 
@@ -15,7 +15,7 @@ function Chat() {
 
   /***** STATE *****/
   const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
-  const username = useAppSelector(({ chatReducer }) => chatReducer.username);
+
   const typingUser = useAppSelector(
     ({ chatReducer }) => chatReducer.typingUser
   );
@@ -48,16 +48,7 @@ function Chat() {
               />
             );
           } else {
-            // User enter or left the chat message
-            return (
-              <li key={nanoid()}>
-                <div className='entete user-activity'>
-                  <span className={'status blue'}></span>
-                  {'  '}
-                  <h2>{name}</h2> <h3>{message}</h3>
-                </div>
-              </li>
-            );
+            return <ChatUserActivity name={name} message={message} />; // User enter or left the chat message
           }
         })}
       </ul>

@@ -23,14 +23,19 @@ export const io = new Server<
 });
 // Functions
 import { onConnection } from './controller/socketConnection';
+// Routers
+import userRouter from './routers/user';
 
-// Middlewares
+/***** MIDDLEWARES *****/
 app.use(cors());
 app.use(express.json());
 
+/***** IO *****/
 io.on('connection', onConnection); // On socket connection
 
-// Server setup
+/***** ROUTERS *****/
+app.use('/users', userRouter);
+
 http.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}`);
 });

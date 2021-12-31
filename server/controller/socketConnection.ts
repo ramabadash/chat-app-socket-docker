@@ -27,6 +27,11 @@ export const onConnection = (socket: SocketType) => {
   /***** ON MESSAGE *****/
   socket.on('message', onMessage); // On message event reply to the client
 
+  /***** ON TYPING *****/
+  socket.on('userTyping', ({ name, type }) => {
+    io.emit('userTypingReplay', { name, type });
+  });
+
   /***** ON DISCONNECTION *****/
   socket.on('disconnect', () => {
     onDisconnected(name, socket); // On user disconnecting

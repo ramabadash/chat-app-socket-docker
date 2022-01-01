@@ -37,8 +37,6 @@
 
 #### Visit my app on heroku- ✨**TODO -(Add link)**✨
 
-#### DockerHub - ✨**TODO -(Add link)**✨
-
 ## Local use -
 
 ### Github 🐱‍👤
@@ -53,8 +51,6 @@
 
 - **Run on root dir `docker-compose up -d --build`**
 - **Go to http://localhost:3000 and enjoy!**
-
-- **TODO -(Add instructions)**
 
 ---
 

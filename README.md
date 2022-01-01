@@ -1,22 +1,79 @@
-## Chat app with Socket Io and docker
+## Live chat app with Socket Io and docker 💬🐋
 
-## Task:
+#### Assignment in the cyber4's course for practicing the socket.io library and docker
 
-### End goal - A chat app which is divided into two containers.
+---
 
-- One container will contain our server side
-- Second container will contain our client side
+### Technologies in use - 👩‍💻👨‍💻
 
-### Requirements:
+- **[React](https://reactjs.org/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[React Router DOM](https://www.npmjs.com/package/react-router-dom)**
+- **[Redux](https://redux.js.org/)**
+- **[Docker](https://www.docker.com/)**
 
-- The server will contain an array of all users currently logged in to chat.
-- The server will notify all users of a user's login and logout.
-- There will be a list on the chat side (frontend) which will contain the name / id of everyone who is currently logged in to the chat.
-- When clicking on the name / id of a user who is currently logged in to the chat you will be given the option to send a specific message to that user only.
-- Dockerize both of your directories (front and back)
-- Add a `docker compose` file.
-- Run your docker-compose.yml file and see that your full app is running.
+#### Packages 📦
 
-### Bonus:
+##### Front-end
 
-- Add a "typing ..." comment which will be sent to all online users when one of them types (it is recommended to add the name of the same person typing to the comment)
+- **[Axios](https://www.npmjs.com/package/axios) - For API requests**
+- **[Notyf](https://www.npmjs.com/package/notyf) - for nice popUp messages**
+- **[Socket.io-client](https://socket.io/docs/v4/client-api/) - For client server connection**
+- **[Moment](https://momentjs.com/) - For nice dates**
+- **[mui](https://mui.com/) - For design**
+
+##### Back-end
+
+- **[ts-node-dev](https://www.npmjs.com/package/ts-node-dev) and [ts-node](https://www.npmjs.com/package/ts-node)**
+- **[Express](https://www.npmjs.com/package/express)**
+- **[Socket.io](https://socket.io/) - For client server connection**
+- **[Cors](https://www.npmjs.com/package/cors)**
+
+---
+
+## My app -
+
+## Public use -
+
+#### Link to docker hub- ✨[Dockerhub-ramab2108/socket-chat](https://hub.docker.com/repository/docker/ramab2108/socket-chat)✨
+
+## Local use -
+
+### Github 🐱‍👤
+
+- **Clone this repo**
+- **Run `npm i` on the `client` and `server` dirs - To install all the dependencies**
+- **Run `npm run dev` on `server` dir - To start the server**
+- **Run `npm start` on `client` dir - To start the front-end**
+- **Go to http://localhost:3000 and enjoy!**
+
+### Docker 🐋
+
+- **Docker - Run on root dir `docker build -t chat-app .` -> `docker run -dp 4000:4000 chat-app`**
+- **Docker compose - Run on root dir `docker-compose up -d --build`**
+- **Go to http://localhost:4000 and enjoy!**
+
+---
+
+### Features - 💫
+
+- **Login with a unique username** 👤
+- **The online users view is updated live** 👥
+- **Private messages to the user by clicking on the user** 🔏
+- **Chat scrolls down automatically** 🔽
+- **Indication for the user typing live** 💬
+- **Indication that a user is logging in or out of the chat** 👤❌✔
+- **Navbar with the option to disconnect from the chat** 🚪
+- **Nice design!** 💅
+
+---
+
+## Screenshots 📸 -
+
+### <img src="./README-PICS/login.png"/>
+
+### <img src="./README-PICS/my-app.png"/>
+
+### <img src="./README-PICS/typing.png"/>
+
+---

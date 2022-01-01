@@ -1,0 +1,36 @@
+.App {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.destination {
+  font-size: 1.5em;
+  background-color: rgba(255, 85, 23, 0.65);
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+}
+
+.chat {
+  grid-area: 1 / 1 / 7 / 6;
+  background-image: url('https://i.pinimg.com/474x/85/ec/df/85ecdf1c3611ecc9b7fa85282d9526e0.jpg');
+  color: whitesmoke;
+  overflow-y: auto;
+  min-height: 100%;
+  height: 70vh;
+}
+
+.users-list-container {
+  grid-area: 1 / 6 / 8 / 7;
+  color: whitesmoke;
+}
+.send-message-container {
+  grid-area: 7 / 1 / 8 / 6;
+  color: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+}

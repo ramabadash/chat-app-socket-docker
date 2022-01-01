@@ -1,0 +1,6 @@
+version: '2.2.1'
+services:
+  back:
+    image: chat-app
+    ports:
+      - 4000:4000

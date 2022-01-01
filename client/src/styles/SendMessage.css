@@ -1,0 +1,26 @@
+.message-textarea {
+  resize: none !important;
+  background-color: rgba(255, 85, 23, 0.836);
+  color: whitesmoke;
+  width: 90%;
+  height: 100%;
+  font-family: 'PT Sans Narrow', sans-serif !important;
+  font-size: 1.5em;
+}
+.message-textarea::-webkit-input-placeholder {
+  color: whitesmoke;
+  font-size: 1em;
+  font-family: 'PT Sans Narrow', sans-serif !important;
+}
+#send-btn {
+  font-size: 3em;
+  cursor: pointer;
+  margin: auto;
+  color: rgba(255, 85, 23, 0.836);
+  padding: 0.25em;
+}
+
+#send-btn:hover {
+  background-color: rgba(245, 245, 245, 0.137);
+  border-radius: 50%;
+}

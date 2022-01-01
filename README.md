@@ -12,7 +12,7 @@
 - **[Redux](https://redux.js.org/)**
 - **[Docker](https://www.docker.com/)**
 
-#### Packages
+#### Packages 📦
 
 ##### Front-end
 
@@ -24,7 +24,7 @@
 
 ##### Back-end
 
-- **[ts-node](https://www.npmjs.com/package/ts-node-dev) and [ts-node](https://www.npmjs.com/package/ts-node)**
+- **[ts-node-dev](https://www.npmjs.com/package/ts-node-dev) and [ts-node](https://www.npmjs.com/package/ts-node)**
 - **[Express](https://www.npmjs.com/package/express)**
 - **[Socket.io](https://socket.io/) - For client server connection**
 - **[Cors](https://www.npmjs.com/package/cors)**
@@ -35,7 +35,7 @@
 
 ## Public use -
 
-#### Visit my app on heroku- ✨**TODO -(Add link)**✨
+#### Link to docker hub- ✨[Dockerhub-ramab2108/socket-chat](https://hub.docker.com/repository/docker/ramab2108/socket-chat)✨
 
 ## Local use -
 
@@ -49,8 +49,9 @@
 
 ### Docker 🐋
 
-- **Run on root dir `docker-compose up -d --build`**
-- **Go to http://localhost:3000 and enjoy!**
+- **Docker - Run on root dir `docker build -t chat-app .` -> `docker run -dp 4000:4000 chat-app`**
+- **Docker compose - Run on root dir `docker-compose up -d --build`**
+- **Go to http://localhost:4000 and enjoy!**
 
 ---
 

@@ -49,7 +49,7 @@
 
 ### Docker 🐋
 
-- **Docker - Run on root dir `docker build -t chat-app .` -> `docker run -dp 4000:4000 chat-app`**
+- **Docker - Run on root dir `docker build -t chat-app .` ➡ `docker run -dp 4000:4000 chat-app`**
 - **Docker compose - Run on root dir `docker-compose up -d --build`**
 - **Go to http://localhost:4000 and enjoy!**
 

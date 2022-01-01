@@ -29,7 +29,7 @@ const onConnection = (socket) => {
     });
     /***** ON TYPING *****/
     socket.on('userTyping', ({ name, type }) => {
-        server_1.io.emit('userTypingReplay', { name, type });
+        socket.broadcast.emit('userTypingReplay', { name, type });
     });
     /***** ON DISCONNECTION *****/
     socket.on('disconnect', () => {

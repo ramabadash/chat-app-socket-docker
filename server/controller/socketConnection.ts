@@ -31,7 +31,7 @@ export const onConnection = (socket: SocketType) => {
 
   /***** ON TYPING *****/
   socket.on('userTyping', ({ name, type }) => {
-    io.emit('userTypingReplay', { name, type });
+    socket.broadcast.emit('userTypingReplay', { name, type });
   });
 
   /***** ON DISCONNECTION *****/

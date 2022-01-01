@@ -1,5 +1,4 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 
 /* ---------------------- COMPONENT ----------------------  */
 
@@ -11,7 +10,7 @@ function ChatUserActivity({
   message: string;
 }) {
   return (
-    <li key={nanoid()}>
+    <li>
       <div className='entete user-activity'>
         <span className={'status blue'}></span>
         {'  '}

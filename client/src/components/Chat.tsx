@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { nanoid } from 'nanoid';
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
 /***** COMPONENTS *****/
@@ -41,6 +42,7 @@ function Chat() {
           if (timeStamp) {
             return (
               <ChatUserMessage
+                key={nanoid()}
                 name={name}
                 message={message}
                 timeStamp={timeStamp}
@@ -48,7 +50,9 @@ function Chat() {
               />
             );
           } else {
-            return <ChatUserActivity name={name} message={message} />; // User enter or left the chat message
+            return (
+              <ChatUserActivity key={nanoid()} name={name} message={message} />
+            ); // User enter or left the chat message
           }
         })}
       </ul>

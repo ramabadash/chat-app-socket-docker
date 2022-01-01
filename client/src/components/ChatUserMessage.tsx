@@ -1,5 +1,4 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 /***** REDUX *****/
 import { useAppSelector } from '../app/hooks';
 /***** TYPES *****/
@@ -22,7 +21,7 @@ function ChatUserMessage({
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
   return (
-    <li key={nanoid()} className={`${username === name ? 'me' : 'you'}`}>
+    <li className={`${username === name ? 'me' : 'you'}`}>
       <div className='entete'>
         <span className={'status green'}></span>
         <h2>{name}</h2>{' '}

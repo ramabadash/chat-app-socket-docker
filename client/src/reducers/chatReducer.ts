@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ChatState } from '../@types/types';
 // Types
-import { User } from '../../../server/@types/db/types';
-import { Message } from '../../../server/@types/socket/types';
+import { User } from '../@types/db/types';
+import { Message } from '../@types/socket/types';
 
 export const initialState: ChatState = {
   username: '',

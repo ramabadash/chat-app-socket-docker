@@ -1,5 +1,5 @@
-import { Message } from '../../../server/@types/socket/types';
-import { User } from '../../../server/@types/db/types';
+import { Message } from '../@types/socket/types';
+import { User } from '../@types/db/types';
 
 /***** REDUCER *****/
 export interface ChatState {

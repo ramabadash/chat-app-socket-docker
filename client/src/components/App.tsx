@@ -7,7 +7,7 @@ import { io, Socket } from 'socket.io-client';
 import {
   ServerToClientEvents,
   ClientToServerEvents,
-} from '../../../server/@types/socket/types';
+} from '../@types/socket/types';
 /***** COMPONENTS *****/
 import UsersList from './UsersList';
 import SendMessage from './SendMessage';

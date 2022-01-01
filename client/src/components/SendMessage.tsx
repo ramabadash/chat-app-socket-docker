@@ -13,7 +13,7 @@ import {
   ServerToClientEvents,
   ClientToServerEvents,
   Message,
-} from '../../../server/@types/socket/types';
+} from '../@types/socket/types';
 
 interface SendMessageProp {
   socketRef: React.MutableRefObject<

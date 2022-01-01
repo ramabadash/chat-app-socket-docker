@@ -17,7 +17,7 @@ import { Socket } from 'socket.io-client';
 import {
   ServerToClientEvents,
   ClientToServerEvents,
-} from '../../../server/@types/socket/types';
+} from '../@types/socket/types';
 
 interface SocketProp {
   socketRef?: React.MutableRefObject<

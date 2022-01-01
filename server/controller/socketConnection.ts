@@ -10,11 +10,9 @@ import { onDisconnected } from './socketDisconnected';
 
 export const onConnection = (socket: SocketType) => {
   /***** ON CONNECTION *****/
-  console.log('connected user');
   const name = socket.handshake.auth.username;
 
   USERS.push({ id: socket.id, name }); // Update users list
-  console.log(USERS);
 
   // Update users about the login by message
   socket.broadcast.emit('replay', {

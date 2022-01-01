@@ -16,5 +16,4 @@ export const onDisconnected = (name: string, socket: SocketType) => {
   USERS.splice(userIndex, 1);
   // Send user activity details
   io.emit('userActivity', USERS);
-  console.log({ USERS });
 };

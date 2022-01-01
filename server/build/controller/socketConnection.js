@@ -13,10 +13,8 @@ const socketOnMessage_1 = require("./socketOnMessage");
 const socketDisconnected_1 = require("./socketDisconnected");
 const onConnection = (socket) => {
     /***** ON CONNECTION *****/
-    console.log('connected user');
     const name = socket.handshake.auth.username;
     users_1.default.push({ id: socket.id, name }); // Update users list
-    console.log(users_1.default);
     // Update users about the login by message
     socket.broadcast.emit('replay', {
         name,

@@ -18,6 +18,5 @@ const onDisconnected = (name, socket) => {
     users_1.default.splice(userIndex, 1);
     // Send user activity details
     server_1.io.emit('userActivity', users_1.default);
-    console.log({ USERS: users_1.default });
 };
 exports.onDisconnected = onDisconnected;

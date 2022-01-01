@@ -9,6 +9,7 @@ exports.io = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const socket_io_1 = require("socket.io");
+const path_1 = __importDefault(require("path"));
 // Create server
 const app = (0, express_1.default)();
 const PORT = 4000;
@@ -27,6 +28,11 @@ app.use(express_1.default.json());
 /***** IO *****/
 exports.io.on('connection', socketConnection_1.onConnection); // On socket connection
 /***** ROUTERS *****/
+//Static files
+app.use(express_1.default.static(path_1.default.join(__dirname, '../client/build/')));
+app.get('/', (_, res) => {
+    res.sendFile(path_1.default.join(__dirname, '../client/build/index.html'));
+});
 app.use('/users', user_1.default);
 http.listen(PORT, () => {
     console.log(`The application is listening on port ${PORT}`);

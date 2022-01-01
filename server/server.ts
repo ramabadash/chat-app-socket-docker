@@ -1,8 +1,9 @@
 /***** VARIABLES *****/
 // Importing module
-import express from 'express';
+import express, { Response } from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
+import path from 'path';
 // Import types
 import {
   ClientToServerEvents,
@@ -34,6 +35,12 @@ app.use(express.json());
 io.on('connection', onConnection); // On socket connection
 
 /***** ROUTERS *****/
+//Static files
+app.use(express.static(path.join(__dirname, '../client/build/')));
+app.get('/', (_, res: Response) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 app.use('/users', userRouter);
 
 http.listen(PORT, () => {

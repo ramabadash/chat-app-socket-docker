@@ -1,0 +1,12 @@
+version: '2.2.1'
+services:
+  back:
+    build: ./server
+    image: chat-backend
+    ports:
+      - 4000:4000
+  front:
+    build: ./client
+    image: chat-frontend
+    ports:
+      - '3000:3000'

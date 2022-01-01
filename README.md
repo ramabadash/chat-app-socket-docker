@@ -44,11 +44,15 @@
 ### Github 🐱‍👤
 
 - **Clone this repo**
-- **run `npm i` on the `client` and `server` dirs - To install all the dependencies**
-- **run `npm run dev` on `server` dir - To start the server**
-- **run `npm start` on `client` dir - To start the front-end**
+- **Run `npm i` on the `client` and `server` dirs - To install all the dependencies**
+- **Run `npm run dev` on `server` dir - To start the server**
+- **Run `npm start` on `client` dir - To start the front-end**
+- **Go to http://localhost:3000 and enjoy!**
 
 ### Docker 🐋
+
+- **Run on root dir `docker-compose up -d --build`**
+- **Go to http://localhost:3000 and enjoy!**
 
 - **TODO -(Add instructions)**
 

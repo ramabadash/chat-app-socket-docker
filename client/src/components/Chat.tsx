@@ -5,6 +5,7 @@ import { useAppSelector } from '../app/hooks';
 /***** COMPONENTS *****/
 import ChatUserMessage from './ChatUserMessage';
 import ChatUserActivity from './ChatUserActivity';
+import MessageDestination from './MessageDestination';
 /***** STYLE *****/
 import '../styles/Chat.css';
 
@@ -36,6 +37,7 @@ function Chat() {
 
   return (
     <div className='chat' ref={messageEl}>
+      <MessageDestination />
       <ul className='chat-list'>
         {chat.map(({ name, message, timeStamp, to }) => {
           // Message from a user

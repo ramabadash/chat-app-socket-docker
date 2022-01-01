@@ -13,7 +13,6 @@ import UsersList from './UsersList';
 import SendMessage from './SendMessage';
 import Chat from './Chat';
 import MenuAppBar from './MenuAppBar';
-import MessageDestination from './MessageDestination';
 /***** ACTIONS *****/
 import {
   updateUsers,
@@ -68,7 +67,6 @@ function App() {
     <>
       <MenuAppBar socketRef={socketRef} />
       <div className='App'>
-        <MessageDestination />
         <Chat />
         <UsersList />
         <SendMessage socketRef={socketRef} />

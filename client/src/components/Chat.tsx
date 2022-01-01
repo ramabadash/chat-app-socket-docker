@@ -18,10 +18,6 @@ function Chat() {
   /***** STATE *****/
   const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
 
-  const typingUser = useAppSelector(
-    ({ chatReducer }) => chatReducer.typingUser
-  );
-
   /***** EFFECT *****/
   //Scroll down the massages list on new massages
   useEffect(() => {
@@ -58,7 +54,6 @@ function Chat() {
           }
         })}
       </ul>
-      {typingUser ? <p className='typing-p'>{typingUser} is typing ...</p> : ''}
     </div>
   );
 }

@@ -78,10 +78,7 @@
 }
 
 .typing-p {
-  background-color: rgba(128, 128, 128, 0.384);
-  color: whitesmoke;
+  color: black;
   text-align: center;
-  width: 70%;
   margin: auto;
-  border-radius: 1em;
 }

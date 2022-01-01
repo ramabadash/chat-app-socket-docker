@@ -12,10 +12,19 @@ function MessageDestination() {
     ({ chatReducer }) => chatReducer.room.name
   );
 
+  const typingUser = useAppSelector(
+    ({ chatReducer }) => chatReducer.typingUser
+  );
+
   return (
     <div className='destination'>
       <AccountCircle />
       <span> To ➡ {currentRoom ? currentRoom : 'Group chat'} </span>
+      {typingUser ? (
+        <p className='typing-p'>{typingUser} is typing ... 💬</p>
+      ) : (
+        ''
+      )}
     </div>
   );
 }

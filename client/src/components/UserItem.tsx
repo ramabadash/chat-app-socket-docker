@@ -8,7 +8,9 @@ import { setMessageDestination } from '../reducers/chatReducer';
 
 function UserItem({ id, name }: { id: string; name: string }) {
   /***** STATE *****/
-  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room);
+  const currentRoom = useAppSelector(
+    ({ chatReducer }) => chatReducer.room.room
+  );
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
@@ -18,7 +20,7 @@ function UserItem({ id, name }: { id: string; name: string }) {
       key={id}
       className={`${currentRoom === id ? 'active' : ''}`}
       onClick={() => {
-        dispatch(setMessageDestination({ room: id }));
+        dispatch(setMessageDestination({ room: id, name }));
       }}
     >
       <img

@@ -5,7 +5,7 @@ import { User } from '../../../server/@types/db/types';
 export interface ChatState {
   username: string;
   connectedUsers: User[];
-  room: string;
+  room: { room: string; name: string };
   chat: Message[];
   typingUser: string;
 }

@@ -7,7 +7,7 @@ import { Message } from '../../../server/@types/socket/types';
 export const initialState: ChatState = {
   username: '',
   connectedUsers: [],
-  room: '',
+  room: { room: '', name: '' },
   chat: [],
   typingUser: '',
 };
@@ -30,15 +30,16 @@ export const chatSlice = createSlice({
 
     setMessageDestination: (
       state,
-      { payload }: PayloadAction<{ room: string }>
+      { payload }: PayloadAction<{ room: string; name: string }>
     ) => {
       const roomToChange = state.room
-        ? state.room === payload.room
+        ? state.room.room === payload.room
           ? ''
           : payload.room
         : payload.room;
+      const nameToChange = roomToChange ? payload.name : '';
 
-      return { ...state, room: roomToChange };
+      return { ...state, room: { room: roomToChange, name: nameToChange } };
     },
 
     setTypingUser: (

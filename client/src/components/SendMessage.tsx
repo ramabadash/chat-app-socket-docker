@@ -26,7 +26,7 @@ const notyf = new Notyf();
 
 function SendMessage({ socketRef }: SendMessageProp) {
   /***** STATE *****/
-  const room = useAppSelector(({ chatReducer }) => chatReducer.room);
+  const room = useAppSelector(({ chatReducer }) => chatReducer.room.room);
 
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 

@@ -36,9 +36,9 @@ io.on('connection', onConnection); // On socket connection
 
 /***** ROUTERS *****/
 //Static files
-app.use(express.static(path.join(__dirname, '../client/build/')));
+app.use(express.static(path.join(__dirname, './client/build/')));
 app.get('/', (_, res: Response) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 app.use('/users', userRouter);

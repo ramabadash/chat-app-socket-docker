@@ -29,9 +29,9 @@ app.use(express_1.default.json());
 exports.io.on('connection', socketConnection_1.onConnection); // On socket connection
 /***** ROUTERS *****/
 //Static files
-app.use(express_1.default.static(path_1.default.join(__dirname, '../client/build/')));
+app.use(express_1.default.static(path_1.default.join(__dirname, './client/build/')));
 app.get('/', (_, res) => {
-    res.sendFile(path_1.default.join(__dirname, '../client/build/index.html'));
+    res.sendFile(path_1.default.join(__dirname, './client/build/index.html'));
 });
 app.use('/users', user_1.default);
 http.listen(PORT, () => {

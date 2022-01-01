@@ -21,7 +21,7 @@ function UsersList() {
       <ul>
         {connectedUsers.map(({ id, name }) => {
           if (username !== name) {
-            return <UserItem id={id} name={name} />;
+            return <UserItem key={id} id={id} name={name} />;
           }
         })}
       </ul>

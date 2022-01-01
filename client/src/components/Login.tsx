@@ -13,6 +13,10 @@ import Button from '@mui/material/Button';
 import MenuAppBar from './MenuAppBar';
 /***** STYLE *****/
 import '../styles/Login.css';
+/***** POP-UP MESSAGES *****/
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+const notyf = new Notyf();
 
 /* ---------------------- COMPONENT ----------------------  */
 
@@ -27,6 +31,9 @@ function Login() {
 
   const setUserName = async () => {
     try {
+      if (!username) {
+        return notyf.error(`You must fill user name field. Please try again`); //error message
+      }
       const { data } = await axios.post(
         `http://localhost:4000/users/${username}`
       );
@@ -35,7 +42,7 @@ function Login() {
         navigate('/chat');
       }
     } catch (error) {
-      console.log(error.response.data);
+      notyf.error(`User name is taken. Please try again`); //error message
       setUsername('');
     }
   };

@@ -5,6 +5,9 @@ import { Socket } from 'socket.io-client';
 import { useAppSelector } from '../app/hooks';
 /***** STYLE *****/
 import '../styles/SendMessage.css';
+/***** POP-UP MESSAGES *****/
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 /***** TYPES *****/
 import {
   ServerToClientEvents,
@@ -17,6 +20,7 @@ interface SendMessageProp {
     Socket<ServerToClientEvents, ClientToServerEvents> | undefined
   >;
 }
+const notyf = new Notyf();
 
 /* ---------------------- COMPONENT ----------------------  */
 
@@ -51,7 +55,7 @@ function SendMessage({ socketRef }: SendMessageProp) {
       setStopTypingTimeout(null);
       socketRef.current!.emit('userTyping', { name: username, type: false });
     } else {
-      console.log("Can't send empty messages"); // TODO - error message
+      notyf.error(`Can't send empty messages`); //error message
     }
   };
 

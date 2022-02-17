@@ -15,17 +15,15 @@ const app = express();
 const PORT: Number = 4000;
 const http = require('http').createServer(app);
 // io
-export const io = new Server<
-  ClientToServerEvents,
-  ServerToClientEvents,
-  InterServerEvents
->(http, {
+export const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents>(http, {
   cors: { origin: ['http://localhost:3000'] },
 });
 // Functions
 import { onConnection } from './controller/socketConnection';
 // Routers
 import userRouter from './routers/user';
+// Middlewares
+import errorHandler from './middlewares/errorHandler';
 
 /***** MIDDLEWARES *****/
 app.use(cors());
@@ -42,6 +40,8 @@ app.get('/', (_, res: Response) => {
 });
 
 app.use('/users', userRouter);
+
+app.use(errorHandler);
 
 http.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}`);

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios, { Axios, AxiosError } from 'axios';
 /***** REDUX *****/
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 /***** ACTIONS *****/
-import { userLogin } from '../reducers/chatReducer';
+import { userLogin } from '../../reducers/chatReducer';
 /***** COMPONENTS *****/
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import MenuAppBar from './MenuAppBar';
+import MenuAppBar from '../MenuAppBar';
 /***** STYLE *****/
-import '../styles/Login.css';
+import './Login.css';
 /***** POP-UP MESSAGES *****/
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
@@ -23,27 +23,30 @@ const notyf = new Notyf();
 function Login() {
   /***** STATE *****/
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const setUserName = async () => {
+  const login = async () => {
     try {
-      if (!username) {
-        return notyf.error(`You must fill user name field. Please try again`); //error message
+      if (!username || !password) {
+        return notyf.error(`You must fill all fields. Please try again`); //error message
       }
-      const { data } = await axios.post(
-        `http://localhost:4000/users/${username}`
-      );
+      const { data } = await axios.post(`http://localhost:4000/users/login`, {
+        username,
+        password,
+      });
       if (data === username) {
         dispatch(userLogin({ username }));
         navigate('/chat');
       }
     } catch (error) {
-      notyf.error(`User name is taken. Please try again`); //error message
+      notyf.error(error.response.data); //error message
       setUsername('');
+      setPassword('');
     }
   };
 
@@ -69,7 +72,27 @@ function Login() {
           }}
           variant='standard'
         />
-        <Button className='login-btn' variant='outlined' onClick={setUserName}>
+
+        <TextField
+          id='input-with-icon-textfield-password'
+          label='Enter password here'
+          value={password}
+          onChange={e => {
+            setPassword(e.target.value);
+          }}
+          type='password'
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start' className='input-adornment'>
+                <i className='fa-solid fa-unlock-keyhole password-icon'></i>
+              </InputAdornment>
+            ),
+            autoComplete: 'new-password',
+          }}
+          variant='standard'
+        />
+
+        <Button className='login-btn' variant='outlined' onClick={login}>
           Login
         </Button>
       </div>

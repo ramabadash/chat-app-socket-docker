@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
+import axios from 'axios';
 /***** ACTIONS *****/
 import { userLogin } from '../reducers/chatReducer';
 /***** COMPONENTS *****/
@@ -14,10 +15,7 @@ import Menu from '@mui/material/Menu';
 /***** IO *****/
 import { Socket } from 'socket.io-client';
 /***** TYPES *****/
-import {
-  ServerToClientEvents,
-  ClientToServerEvents,
-} from '../@types/socket/types';
+import { ServerToClientEvents, ClientToServerEvents } from '../@types/socket/types';
 
 interface SocketProp {
   socketRef?: React.MutableRefObject<
@@ -35,12 +33,26 @@ function MenuAppBar({ socketRef }: SocketProp) {
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
 
-  const handleLogout = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    setAuth(prevAuth => !prevAuth);
-    dispatch(userLogin({ username: '' }));
+  const handleLogout = async (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    // Handle logout - Backend
+    // Send logout event to server
     if (socketRef && socketRef.current) {
       socketRef.current.disconnect();
     }
+    try {
+      await axios('http://localhost:4000/users/logout', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json;charset=UTF-8' },
+        data: { username },
+        withCredentials: true, // send cookies
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // Handle logout - Frontend
+    setAuth(prevAuth => !prevAuth);
+    dispatch(userLogin({ username: '' }));
   };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {

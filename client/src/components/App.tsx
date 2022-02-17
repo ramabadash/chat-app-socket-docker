@@ -4,21 +4,14 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 /***** IO *****/
 import { io, Socket } from 'socket.io-client';
 /***** TYPES *****/
-import {
-  ServerToClientEvents,
-  ClientToServerEvents,
-} from '../@types/socket/types';
+import { ServerToClientEvents, ClientToServerEvents } from '../@types/socket/types';
 /***** COMPONENTS *****/
-import UsersList from './UsersList';
+import UsersList from './Users/UsersList';
 import SendMessage from './SendMessage';
 import Chat from './Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
-import {
-  updateUsers,
-  getMessage,
-  setTypingUser,
-} from '../reducers/chatReducer';
+import { updateUsers, getMessage, setTypingUser } from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 

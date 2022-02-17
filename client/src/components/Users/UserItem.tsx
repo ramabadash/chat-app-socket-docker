@@ -1,16 +1,14 @@
 import React from 'react';
 /***** REDUX *****/
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 /***** ACTIONS *****/
-import { setMessageDestination } from '../reducers/chatReducer';
+import { setMessageDestination } from '../../reducers/chatReducer';
 
 /* ---------------------- COMPONENT ----------------------  */
 
 function UserItem({ id, name }: { id: string; name: string }) {
   /***** STATE *****/
-  const currentRoom = useAppSelector(
-    ({ chatReducer }) => chatReducer.room.room
-  );
+  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room.room);
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
@@ -23,10 +21,7 @@ function UserItem({ id, name }: { id: string; name: string }) {
         dispatch(setMessageDestination({ room: id, name }));
       }}
     >
-      <img
-        src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png'
-        alt='user'
-      />
+      <img src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png' alt='user' />
       <div>
         <h2>{name}</h2>
         <h3>

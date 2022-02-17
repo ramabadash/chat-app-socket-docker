@@ -17,9 +17,9 @@ function UsersList() {
   return (
     <div className='users-list-container'>
       <ul>
-        {connectedUsers.map(({ id, name }) => {
+        {connectedUsers.map(({ id, name, status }) => {
           if (username !== name) {
-            return <UserItem key={id} id={id} name={name} />;
+            return <UserItem key={id} id={id} name={name} status={status} />;
           }
         })}
       </ul>

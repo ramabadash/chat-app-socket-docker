@@ -1,6 +1,10 @@
 import express from 'express';
 const router = express.Router();
 import USERS from '../db/users';
+import { register } from '../controller/users/usersLoginLogout';
+
+// Register
+router.post('/register', register);
 
 // Check ig username is available
 router.post('/:username', (req, res) => {

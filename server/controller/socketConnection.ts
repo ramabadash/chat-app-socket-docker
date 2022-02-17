@@ -12,7 +12,15 @@ export const onConnection = (socket: SocketType) => {
   /***** ON CONNECTION *****/
   const name = socket.handshake.auth.username;
 
-  USERS.push({ id: socket.id, name }); // Update users list
+  const user = USERS.find(user => user.name === name);
+
+  if (!user) {
+    socket.disconnect(true);
+    throw { status: '400', message: 'User not found' };
+  }
+  // Update users list
+  user.id = socket.id;
+  user.status = 'online';
 
   // Update users about the login by message
   socket.broadcast.emit('replay', {

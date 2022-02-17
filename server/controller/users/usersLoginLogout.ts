@@ -40,6 +40,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
     // Change user status
     user.status = 'online';
+    console.log('Login success!', USERS);
 
     res.send(username);
   } catch (error) {
@@ -68,6 +69,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     // Create user and save to db
     const newUser = { name: username, id: '', password: hashedPassword, status: 'offline' } as User;
     USERS.push(newUser);
+    console.log('Registered', USERS);
 
     res.status(201).json(newUser.name);
   } catch (error) {
@@ -85,6 +87,7 @@ export const logout = (req: Request, res: Response, next: NextFunction) => {
   }
   //Change user status to offline
   user.status = 'offline';
+  console.log('logging out', USERS);
 
   // ----- Delete tokens -----
   // Remove cookies

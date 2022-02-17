@@ -1,20 +1,9 @@
 import express from 'express';
 const router = express.Router();
-import USERS from '../db/users';
-import { register } from '../controller/users/usersLoginLogout';
+import { register, login } from '../controller/users/usersLoginLogout';
 
-// Register
-router.post('/register', register);
+router.post('/register', register); // Register
 
-// Check ig username is available
-router.post('/:username', (req, res) => {
-  const { username } = req.params;
-  for (const user of USERS) {
-    if (user.name === username) {
-      throw { status: 400, message: 'Username is taken! choose another one' };
-    }
-  }
-  res.send(username);
-});
+router.post('/login', login); // Login
 
 export default router;

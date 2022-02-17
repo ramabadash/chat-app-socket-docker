@@ -40,7 +40,12 @@ function MenuAppBar({ socketRef }: SocketProp) {
       socketRef.current.disconnect();
     }
     try {
-      await axios.post('http://localhost:4000/users/logout', { username });
+      await axios('http://localhost:4000/users/logout', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json;charset=UTF-8' },
+        data: { username },
+        withCredentials: true, // send cookies
+      });
     } catch (error) {
       console.log(error);
     }

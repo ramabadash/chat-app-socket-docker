@@ -26,7 +26,11 @@ import userRouter from './routers/user';
 import errorHandler from './middlewares/errorHandler';
 
 /***** MIDDLEWARES *****/
-app.use(cors());
+const corsOptions = {
+  origin: true, //included origin as true
+  credentials: true, //included credentials as true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 /***** IO *****/

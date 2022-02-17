@@ -35,10 +35,14 @@ function Login() {
       if (!username || !password) {
         return notyf.error(`You must fill all fields. Please try again`); //error message
       }
-      const { data } = await axios.post(`http://localhost:4000/users/login`, {
-        username,
-        password,
+
+      const { data } = await axios('http://localhost:4000/users/login', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json;charset=UTF-8' },
+        data: { username, password },
+        withCredentials: true, // send cookies
       });
+
       if (data === username) {
         dispatch(userLogin({ username }));
         navigate('/chat');

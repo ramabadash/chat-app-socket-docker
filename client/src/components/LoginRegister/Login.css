@@ -1,7 +1,7 @@
 .login-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 70vh;
-  max-height: 60vh;
+  max-height: 70vh;
   margin: 5vh auto;
   padding: 1em;
   text-align: center;
@@ -33,7 +33,9 @@
   font-family: 'PT Sans Narrow', sans-serif !important;
 }
 
-.login-btn {
+.login-btn,
+.to-register-btn,
+.to-login-btn {
   color: #222 !important;
   border-color: #222 !important;
   border-width: 0.1em !important;
@@ -41,6 +43,18 @@
   font-family: 'PT Sans Narrow', sans-serif !important;
   font-size: 1em !important;
   margin-top: 2em !important;
+}
+
+.to-register-btn,
+.to-login-btn {
+  border-color: whitesmoke !important;
+  color: whitesmoke !important;
+}
+
+.to-register-btn:hover,
+.to-login-btn:hover {
+  color: #222 !important;
+  border-color: #222 !important;
 }
 
 .login-btn:hover {

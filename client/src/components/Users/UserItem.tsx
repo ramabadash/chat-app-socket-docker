@@ -18,22 +18,18 @@ interface Props {
 
 function UserItem({ id, name, status }: Props) {
   /***** STATE *****/
-  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room.room);
+  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room);
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
   // Handle click on user item
   const handleUserClick = () => {
-    if (status === 'online') {
-      dispatch(setMessageDestination({ room: id, name }));
-      dispatch(showConversation());
-    } else {
-      notyf.error('Sorry cannot send message to offline users, maybe later...'); //error message
-    }
+    dispatch(setMessageDestination({ name }));
+    dispatch(showConversation());
   };
 
   return (
-    <li key={id} className={`${currentRoom === id ? 'active' : ''}`} onClick={handleUserClick}>
+    <li key={id} className={`${currentRoom === name ? 'active' : ''}`} onClick={handleUserClick}>
       <img src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png' alt='user' />
       <div>
         <h2>{name}</h2>

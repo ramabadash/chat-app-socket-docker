@@ -18,7 +18,7 @@ export const getUsersMessages = (username: string) => {
   const messages = [];
   for (const message of MESSAGES) {
     // Messages for the user / writhen by the user / to general chat room
-    if (message.to === username || message.name === username || message.to === '') {
+    if (message.to === username || message.name === username || message.to === 'Group') {
       messages.push(message);
     }
   }

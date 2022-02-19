@@ -2,7 +2,7 @@ import React from 'react';
 /***** REDUX *****/
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 /***** ACTIONS *****/
-import { setMessageDestination } from '../../reducers/chatReducer';
+import { setMessageDestination, showConversation } from '../../reducers/chatReducer';
 /***** POP-UP MESSAGES *****/
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
@@ -26,6 +26,7 @@ function UserItem({ id, name, status }: Props) {
   const handleUserClick = () => {
     if (status === 'online') {
       dispatch(setMessageDestination({ room: id, name }));
+      dispatch(showConversation());
     } else {
       notyf.error('Sorry cannot send message to offline users, maybe later...'); //error message
     }

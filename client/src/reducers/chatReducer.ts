@@ -11,6 +11,7 @@ export const initialState: ChatState = {
   chat: [],
   currentChat: [],
   typingUser: '',
+  unreadMessages: {},
 };
 
 // Slice
@@ -31,16 +32,33 @@ export const chatSlice = createSlice({
     },
 
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {
+      // Handle unread messages
+      let newUnreadMessages = { ...current(state).unreadMessages }; // Clone unreadMessages
+      if (payload.message.name !== state.room || payload.message.name === state.username) {
+        // Message is not for current room
+        if (newUnreadMessages.hasOwnProperty(payload.message.name)) {
+          newUnreadMessages[payload.message.name] += 1; // Already have unread messages
+        } else {
+          newUnreadMessages[payload.message.name] = 1; // New unread message
+        }
+      }
+
+      // Handle chat
       if (payload.message.to === state.room) {
         // Message to the current user in the current room
         return {
           ...state,
           chat: [...state.chat, payload.message],
           currentChat: [...state.currentChat, payload.message],
+          unreadMessages: newUnreadMessages,
         };
       } else {
         // Message to the current user in another room
-        return { ...state, chat: [...state.chat, payload.message] };
+        return {
+          ...state,
+          chat: [...state.chat, payload.message],
+          unreadMessages: newUnreadMessages,
+        };
       }
     },
 
@@ -77,16 +95,22 @@ export const chatSlice = createSlice({
       }
       return { ...state, currentChat: filteredChat };
     },
+
+    clearUnreadMessagesByName: (state, { payload }: PayloadAction<{ name: string }>) => {
+      return { ...state, unreadMessages: { ...state.unreadMessages, [payload.name]: 0 } };
+    },
   },
 });
 
 export const {
   userLogin,
   updateUsers,
+  updateMessagesHistory,
   getMessage,
   setMessageDestination,
   setTypingUser,
   showConversation,
+  clearUnreadMessagesByName,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

@@ -9,4 +9,7 @@ export interface ChatState {
   chat: Message[];
   currentChat: Message[];
   typingUser: string;
+  unreadMessages: UserUnreadMessages;
 }
+
+type UserUnreadMessages = { [username: string]: number };

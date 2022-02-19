@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 /***** REDUX *****/
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 /***** ACTIONS *****/
-import { setMessageDestination, showConversation } from '../../reducers/chatReducer';
-/***** POP-UP MESSAGES *****/
-import { Notyf } from 'notyf';
-import 'notyf/notyf.min.css';
-const notyf = new Notyf();
+import {
+  setMessageDestination,
+  showConversation,
+  clearUnreadMessagesByName,
+} from '../../reducers/chatReducer';
 /***** TYPES *****/
 interface Props {
   id: string;
@@ -19,6 +19,12 @@ interface Props {
 function UserItem({ id, name, status }: Props) {
   /***** STATE *****/
   const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room);
+  const unreadMessages = useAppSelector(({ chatReducer }) => chatReducer.unreadMessages);
+  // This users amount of unread messages
+  const [myUnreadMessages, setMyUnreadMessages] = useState<{ username: string; amount: number }>({
+    username: name,
+    amount: 0,
+  });
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
@@ -26,7 +32,18 @@ function UserItem({ id, name, status }: Props) {
   const handleUserClick = () => {
     dispatch(setMessageDestination({ name }));
     dispatch(showConversation());
+    dispatch(clearUnreadMessagesByName({ name }));
   };
+
+  /***** EFFECT *****/
+  useEffect(() => {
+    setMyUnreadMessages(
+      unreadMessages[name]
+        ? { username: name, amount: unreadMessages[name] }
+        : { username: name, amount: 0 }
+    );
+    console.log(myUnreadMessages);
+  }, [unreadMessages]);
 
   return (
     <li key={id} className={`${currentRoom === name ? 'active' : ''}`} onClick={handleUserClick}>
@@ -37,6 +54,7 @@ function UserItem({ id, name, status }: Props) {
           <span className={`status ${status === 'online' ? 'green' : 'red'}`}></span>
           {status === 'online' ? 'online' : 'offline'}
         </h3>
+        <h2>{myUnreadMessages.amount === 0 ? '' : myUnreadMessages.amount}</h2>
       </div>
     </li>
   );

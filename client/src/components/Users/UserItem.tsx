@@ -42,7 +42,6 @@ function UserItem({ id, name, status }: Props) {
         ? { username: name, amount: unreadMessages[name] }
         : { username: name, amount: 0 }
     );
-    console.log(myUnreadMessages);
   }, [unreadMessages]);
 
   return (
@@ -54,8 +53,10 @@ function UserItem({ id, name, status }: Props) {
           <span className={`status ${status === 'online' ? 'green' : 'red'}`}></span>
           {status === 'online' ? 'online' : 'offline'}
         </h3>
-        <h2>{myUnreadMessages.amount === 0 ? '' : myUnreadMessages.amount}</h2>
       </div>
+      <span className='unread-number'>
+        {myUnreadMessages.amount === 0 ? '' : myUnreadMessages.amount}
+      </span>
     </li>
   );
 }

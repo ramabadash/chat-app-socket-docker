@@ -11,7 +11,13 @@ import SendMessage from './SendMessages/SendMessage';
 import Chat from './Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
-import { updateUsers, getMessage, setTypingUser, showConversation } from '../reducers/chatReducer';
+import {
+  updateUsers,
+  getMessage,
+  setTypingUser,
+  showConversation,
+  updateMessagesHistory,
+} from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 
@@ -47,9 +53,7 @@ function App() {
       });
 
       socketRef.current.on('updateMessagesHistory', (messages: Message[]) => {
-        messages.forEach((message: Message) => {
-          dispatch(getMessage({ message }));
-        });
+        dispatch(updateMessagesHistory({ messages }));
         dispatch(showConversation()); // Show the conversation in the group chat
       });
 

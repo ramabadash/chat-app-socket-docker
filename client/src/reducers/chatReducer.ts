@@ -3,7 +3,7 @@ import { ChatState } from '../@types/types';
 // Types
 import { User } from '../@types/db/types';
 import { Message } from '../@types/socket/types';
-
+// initialState
 export const initialState: ChatState = {
   username: '',
   connectedUsers: [],
@@ -13,6 +13,7 @@ export const initialState: ChatState = {
   typingUser: '',
 };
 
+// Slice
 export const chatSlice = createSlice({
   name: 'chat',
   initialState,
@@ -23,6 +24,10 @@ export const chatSlice = createSlice({
 
     updateUsers: (state, { payload }: PayloadAction<{ users: User[] }>) => {
       return { ...state, connectedUsers: payload.users };
+    },
+
+    updateMessagesHistory: (state, { payload }: PayloadAction<{ messages: Message[] }>) => {
+      return { ...state, chat: payload.messages };
     },
 
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {

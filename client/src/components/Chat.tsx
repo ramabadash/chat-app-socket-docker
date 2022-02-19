@@ -13,7 +13,7 @@ import '../styles/Chat.css';
 
 function Chat() {
   /***** REFS *****/
-  const messageEl = useRef<HTMLDivElement | null>(null);
+  const messageEl = useRef<HTMLUListElement | null>(null);
 
   /***** STATE *****/
   const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
@@ -32,9 +32,9 @@ function Chat() {
   }, []);
 
   return (
-    <div className='chat' ref={messageEl}>
+    <div className='chat'>
       <MessageDestination />
-      <ul className='chat-list'>
+      <ul className='chat-list' ref={messageEl}>
         {chat.map(({ name, message, timeStamp, to }) => {
           // Message from a user
           if (timeStamp) {
@@ -48,9 +48,7 @@ function Chat() {
               />
             );
           } else {
-            return (
-              <ChatUserActivity key={nanoid()} name={name} message={message} />
-            ); // User enter or left the chat message
+            return <ChatUserActivity key={nanoid()} name={name} message={message} />; // User enter or left the chat message
           }
         })}
       </ul>

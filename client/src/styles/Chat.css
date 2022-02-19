@@ -1,6 +1,8 @@
 .chat ul {
   list-style: none;
   padding: 0;
+  height: 85%;
+  overflow-y: auto;
 }
 .chat li {
   padding: 0.75em 2em;

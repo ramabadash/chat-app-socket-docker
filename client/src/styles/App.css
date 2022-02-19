@@ -21,7 +21,6 @@
   grid-area: 1 / 1 / 8 / 5;
   background-image: url('https://i.pinimg.com/474x/85/ec/df/85ecdf1c3611ecc9b7fa85282d9526e0.jpg');
   color: whitesmoke;
-  overflow-y: auto;
   height: 100%;
   width: 80vw;
 }

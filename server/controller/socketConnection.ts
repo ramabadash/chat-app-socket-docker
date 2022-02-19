@@ -28,10 +28,11 @@ export const onConnection = (socket: SocketType) => {
   socket.broadcast.emit('replay', {
     name,
     message: 'Enter to the chat',
+    to: 'Group',
   });
 
   io.to(socket.id).emit('updateMessagesHistory', getUsersMessages(name)); // Send messages history to the user
-  MESSAGES.push({ name, message: 'Enter to the chat', to: '', timeStamp: '' }); // Add "user join" message to the messages list
+  MESSAGES.push({ name, message: 'Enter to the chat', to: 'Group', timeStamp: '' }); // Add "user join" message to the messages list
   io.emit('userActivity', USERS); // Send user activity details
 
   /***** ON MESSAGE *****/

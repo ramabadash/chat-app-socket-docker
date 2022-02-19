@@ -7,7 +7,7 @@ import { Message } from '../@types/socket/types';
 export const initialState: ChatState = {
   username: '',
   connectedUsers: [],
-  room: { room: '', name: '' },
+  room: 'Group',
   chat: [],
   currentChat: [],
   typingUser: '',
@@ -26,7 +26,7 @@ export const chatSlice = createSlice({
     },
 
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {
-      if (payload.message.to === state.room.name) {
+      if (payload.message.to === state.room) {
         // Message to the current user in the current room
         return {
           ...state,
@@ -39,15 +39,11 @@ export const chatSlice = createSlice({
       }
     },
 
-    setMessageDestination: (state, { payload }: PayloadAction<{ room: string; name: string }>) => {
-      const roomToChange = state.room
-        ? state.room.room === payload.room
-          ? ''
-          : payload.room
-        : payload.room;
-      const nameToChange = roomToChange ? payload.name : '';
+    setMessageDestination: (state, { payload }: PayloadAction<{ name: string }>) => {
+      // If the room is already set, set to the empty string meaning general chat room
+      const nameToChange = state.room === 'Group' ? payload.name : 'Group';
 
-      return { ...state, room: { room: roomToChange, name: nameToChange } };
+      return { ...state, room: nameToChange };
     },
 
     setTypingUser: (state, { payload }: PayloadAction<{ name: string; type: boolean }>) => {
@@ -64,14 +60,14 @@ export const chatSlice = createSlice({
 
       let filteredChat: Message[] = [];
       // Group chat
-      if (current(state).room.name === '') {
-        filteredChat = chatCopy.filter(message => message.to === '');
+      if (current(state).room === 'Group') {
+        filteredChat = chatCopy.filter(message => message.to === 'Group');
       } else {
         // Private messages
         filteredChat = chatCopy.filter(
           message =>
-            (message.to === state.room.name && message.name === state.username) ||
-            (message.name === state.room.name && message.to === state.username)
+            (message.to === state.room && message.name === state.username) ||
+            (message.name === state.room && message.to === state.username)
         );
       }
       return { ...state, currentChat: filteredChat };

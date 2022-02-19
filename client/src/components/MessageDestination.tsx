@@ -6,19 +6,19 @@ import { useAppSelector } from '../app/hooks';
 
 function MessageDestination() {
   /***** STATE *****/
-  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room.name);
+  const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room);
 
   const typingUser = useAppSelector(({ chatReducer }) => chatReducer.typingUser);
 
   return (
     <div className='destination'>
-      {currentRoom ? (
+      {currentRoom === 'Group' ? (
         <span>
-          <i className='fa-solid fa-user'></i> currentRoom
+          <i className='fa-solid fa-user-group'></i> Group chat
         </span>
       ) : (
         <span>
-          <i className='fa-solid fa-user-group'></i> Group chat
+          <i className='fa-solid fa-user'></i> {currentRoom}
         </span>
       )}
       {typingUser ? <p className='typing-p'>{typingUser} is typing ... 💬</p> : ''}

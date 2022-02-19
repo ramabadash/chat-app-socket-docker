@@ -1,11 +1,12 @@
 import USERS from '../db/users';
 import MESSAGES from '../db/messages';
 
-export const getNameById = (id: string | undefined) => {
-  if (id) {
+// Get socket id by username
+export const getIdByName = (name: string | undefined) => {
+  if (name) {
     for (const user of USERS) {
-      if (user.id === id) {
-        return user.name;
+      if (user.name === name) {
+        return user.id;
       }
     }
   }
@@ -17,7 +18,7 @@ export const getUsersMessages = (username: string) => {
   const messages = [];
   for (const message of MESSAGES) {
     // Messages for the user / writhen by the user / to general chat room
-    if (message.to === username || message.name === username || message.to === '') {
+    if (message.to === username || message.name === username || message.to === 'Group') {
       messages.push(message);
     }
   }

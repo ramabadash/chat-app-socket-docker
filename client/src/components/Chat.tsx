@@ -16,7 +16,7 @@ function Chat() {
   const messageEl = useRef<HTMLUListElement | null>(null);
 
   /***** STATE *****/
-  const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
+  const currentChat = useAppSelector(({ chatReducer }) => chatReducer.currentChat);
 
   /***** EFFECT *****/
   //Scroll down the massages list on new massages
@@ -35,7 +35,7 @@ function Chat() {
     <div className='chat'>
       <MessageDestination />
       <ul className='chat-list' ref={messageEl}>
-        {chat.map(({ name, message, timeStamp, to }) => {
+        {currentChat.map(({ name, message, timeStamp, to }) => {
           // Message from a user
           if (timeStamp) {
             return (

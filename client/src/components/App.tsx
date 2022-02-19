@@ -8,10 +8,16 @@ import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/s
 /***** COMPONENTS *****/
 import UsersList from './Users/UsersList';
 import SendMessage from './SendMessages/SendMessage';
-import Chat from './Chat';
+import Chat from './Chat/Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
-import { updateUsers, getMessage, setTypingUser, showConversation } from '../reducers/chatReducer';
+import {
+  updateUsers,
+  getMessage,
+  setTypingUser,
+  showConversation,
+  updateMessagesHistory,
+} from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 
@@ -47,9 +53,7 @@ function App() {
       });
 
       socketRef.current.on('updateMessagesHistory', (messages: Message[]) => {
-        messages.forEach((message: Message) => {
-          dispatch(getMessage({ message }));
-        });
+        dispatch(updateMessagesHistory({ messages }));
         dispatch(showConversation()); // Show the conversation in the group chat
       });
 
@@ -67,9 +71,11 @@ function App() {
     <>
       <MenuAppBar socketRef={socketRef} />
       <div className='App'>
-        <Chat />
         <UsersList />
-        <SendMessage socketRef={socketRef} />
+        <div className='chat-area'>
+          <Chat />
+          <SendMessage socketRef={socketRef} />
+        </div>
       </div>
     </>
   );

@@ -73,6 +73,7 @@ function MenuAppBar({ socketRef }: SocketProp) {
           </Typography>
           {auth && (
             <div>
+              <span style={{ fontSize: '16px' }}>Hello {username} !</span>
               <IconButton
                 size='large'
                 aria-label='account of current user'
@@ -96,6 +97,7 @@ function MenuAppBar({ socketRef }: SocketProp) {
                   horizontal: 'right',
                 }}
                 open={Boolean(anchorEl)}
+                style={{ top: '6vh' }}
                 onClose={handleClose}
               >
                 <MenuItem

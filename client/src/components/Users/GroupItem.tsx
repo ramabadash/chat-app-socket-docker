@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /***** REDUX *****/
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 /***** ACTIONS *****/
@@ -11,12 +11,9 @@ import {
 interface Props {
   id: string;
   name: string;
-  status: 'online' | 'offline';
 }
 
-/* ---------------------- COMPONENT ----------------------  */
-
-function UserItem({ id, name, status }: Props) {
+function GroupItem({ id, name }: Props) {
   /***** STATE *****/
   const currentRoom = useAppSelector(({ chatReducer }) => chatReducer.room);
   const unreadMessages = useAppSelector(({ chatReducer }) => chatReducer.unreadMessages);
@@ -29,7 +26,7 @@ function UserItem({ id, name, status }: Props) {
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
   // Handle click on user item
-  const handleUserClick = () => {
+  const handleGroupClick = () => {
     dispatch(setMessageDestination({ name }));
     dispatch(showConversation());
     dispatch(clearUnreadMessagesByName({ name }));
@@ -45,14 +42,10 @@ function UserItem({ id, name, status }: Props) {
   }, [unreadMessages]);
 
   return (
-    <li key={id} className={`${currentRoom === name ? 'active' : ''}`} onClick={handleUserClick}>
+    <li key={id} className={`${currentRoom === name ? 'active' : ''}`} onClick={handleGroupClick}>
       <img src='https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png' alt='user' />
       <div>
         <h2>{name}</h2>
-        <h3>
-          <span className={`status ${status === 'online' ? 'green' : 'red'}`}></span>
-          {status === 'online' ? 'online' : 'offline'}
-        </h3>
       </div>
       <span className='unread-number'>
         {myUnreadMessages.amount === 0 ? '' : myUnreadMessages.amount}
@@ -61,4 +54,4 @@ function UserItem({ id, name, status }: Props) {
   );
 }
 
-export default UserItem;
+export default GroupItem;

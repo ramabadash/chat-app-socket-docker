@@ -6,8 +6,16 @@ COPY --chown=node:node ./server/package.json .
 COPY --chown=node:node ./server/package-lock.json .
 RUN npm ci --only-production
 
-COPY --chown=node:node ./server/build .
-COPY --chown=node:node ./client/build ./client/build/
+# Build the client
+COPY --chown=node:node ./client ./client
+RUN cd ./client 
+RUN npm ci --only-production
+RUN npm run build
+RUN cd ..
+# Build the server
+COPY --chown=node:node ./server .
+RUN npm run build
+
 
 # Run our app.
 CMD ["node", "server.js"]

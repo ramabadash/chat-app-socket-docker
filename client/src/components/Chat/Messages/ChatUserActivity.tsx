@@ -1,6 +1,6 @@
 import React from 'react';
 /***** REDUX *****/
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../../../app/hooks';
 /***** TYPES *****/
 interface Props {
   name: string;

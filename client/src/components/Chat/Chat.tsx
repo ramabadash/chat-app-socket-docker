@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 /***** REDUX *****/
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 /***** COMPONENTS *****/
-import ChatUserMessage from './ChatUserMessage';
-import ChatUserActivity from './ChatUserActivity';
+import ChatUserMessage from './Messages/ChatUserMessage';
+import ChatUserActivity from './Messages/ChatUserActivity';
 import MessageDestination from './MessageDestination';
 /***** STYLE *****/
-import '../styles/Chat.css';
+import './Chat.css';
 
 /* ---------------------- COMPONENT ----------------------  */
 

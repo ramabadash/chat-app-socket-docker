@@ -3,7 +3,7 @@ import { ChatState } from '../@types/types';
 // Types
 import { User } from '../@types/db/types';
 import { Message } from '../@types/socket/types';
-
+// initialState
 export const initialState: ChatState = {
   username: '',
   connectedUsers: [],
@@ -11,8 +11,11 @@ export const initialState: ChatState = {
   chat: [],
   currentChat: [],
   typingUser: '',
+  unreadMessages: {},
+  groupChats: [{ name: 'Group', id: 'Group' }],
 };
 
+// Slice
 export const chatSlice = createSlice({
   name: 'chat',
   initialState,
@@ -25,17 +28,57 @@ export const chatSlice = createSlice({
       return { ...state, connectedUsers: payload.users };
     },
 
+    updateMessagesHistory: (state, { payload }: PayloadAction<{ messages: Message[] }>) => {
+      return { ...state, chat: payload.messages };
+    },
+
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {
-      if (payload.message.to === state.room) {
+      const messageContent = payload.message.message;
+      const sender = payload.message.name;
+      const receiver = payload.message.to;
+      const currentRoom = current(state).room;
+
+      // Handle unread messages
+      let newUnreadMessages = { ...current(state).unreadMessages }; // Clone unreadMessages
+      const messageFromTheGroup =
+        receiver === 'Group' && currentRoom !== 'Group' && sender !== state.username;
+      const messageFromAnotherRoomNotUserActivity =
+        sender !== currentRoom &&
+        sender !== state.username &&
+        receiver !== 'Group' &&
+        messageContent !== 'Enter to the chat' &&
+        messageContent !== 'disconnected';
+
+      if (messageFromAnotherRoomNotUserActivity || messageFromTheGroup) {
+        let userToAddNotification = sender;
+
+        if (receiver === 'Group') {
+          userToAddNotification = 'Group';
+        }
+        // Message is not for current room
+        if (newUnreadMessages.hasOwnProperty(userToAddNotification)) {
+          newUnreadMessages[userToAddNotification] += 1; // Already have unread messages
+        } else {
+          newUnreadMessages[userToAddNotification] = 1; // New unread message
+        }
+      }
+
+      // Handle chat
+      if (receiver === currentRoom || (sender === currentRoom && receiver === state.username)) {
         // Message to the current user in the current room
         return {
           ...state,
           chat: [...state.chat, payload.message],
           currentChat: [...state.currentChat, payload.message],
+          unreadMessages: newUnreadMessages,
         };
       } else {
         // Message to the current user in another room
-        return { ...state, chat: [...state.chat, payload.message] };
+        return {
+          ...state,
+          chat: [...state.chat, payload.message],
+          unreadMessages: newUnreadMessages,
+        };
       }
     },
 
@@ -72,16 +115,22 @@ export const chatSlice = createSlice({
       }
       return { ...state, currentChat: filteredChat };
     },
+
+    clearUnreadMessagesByName: (state, { payload }: PayloadAction<{ name: string }>) => {
+      return { ...state, unreadMessages: { ...state.unreadMessages, [payload.name]: 0 } };
+    },
   },
 });
 
 export const {
   userLogin,
   updateUsers,
+  updateMessagesHistory,
   getMessage,
   setMessageDestination,
   setTypingUser,
   showConversation,
+  clearUnreadMessagesByName,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

@@ -6,7 +6,9 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 // Components
 import App from './components/App';
-import Login from './components/Login';
+import Login from './components/LoginRegister/Login';
+import Register from './components/LoginRegister/Register';
+
 // Style
 import './index.css';
 
@@ -16,6 +18,7 @@ ReactDOM.render(
       <Router>
         <Routes>
           <Route path={'/'} element={<Login />} />
+          <Route path={'/register'} element={<Register />} />
           <Route path={'/chat'} element={<App />} />
         </Routes>
       </Router>

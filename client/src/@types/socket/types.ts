@@ -4,6 +4,7 @@ export interface ServerToClientEvents {
   replay: ({ name, message, to, timeStamp }: Message) => void;
   userActivity: (db: User[]) => void;
   userTypingReplay: ({ name, type }: { name: string; type: boolean }) => void;
+  updateMessagesHistory: (messages: Message[]) => void;
 }
 
 export interface ClientToServerEvents {

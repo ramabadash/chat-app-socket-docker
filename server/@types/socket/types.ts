@@ -5,6 +5,7 @@ export interface ServerToClientEvents {
   replay: ({ name, message, to, timeStamp }: Message) => void;
   userActivity: (db: User[]) => void;
   userTypingReplay: ({ name, type }: { name: string; type: boolean }) => void;
+  updateMessagesHistory: (messages: Message[]) => void;
 }
 
 export interface ClientToServerEvents {
@@ -23,8 +24,4 @@ export interface Message {
   timeStamp?: string;
 }
 
-export type SocketType = Socket<
-  ClientToServerEvents,
-  ServerToClientEvents,
-  InterServerEvents
->;
+export type SocketType = Socket<ClientToServerEvents, ServerToClientEvents, InterServerEvents>;

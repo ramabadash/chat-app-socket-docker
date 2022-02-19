@@ -4,20 +4,19 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 /***** IO *****/
 import { io, Socket } from 'socket.io-client';
 /***** TYPES *****/
-import {
-  ServerToClientEvents,
-  ClientToServerEvents,
-} from '../@types/socket/types';
+import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/socket/types';
 /***** COMPONENTS *****/
-import UsersList from './UsersList';
-import SendMessage from './SendMessage';
-import Chat from './Chat';
+import UsersList from './Users/UsersList';
+import SendMessage from './SendMessages/SendMessage';
+import Chat from './Chat/Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
 import {
   updateUsers,
   getMessage,
   setTypingUser,
+  showConversation,
+  updateMessagesHistory,
 } from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
@@ -53,6 +52,11 @@ function App() {
         dispatch(getMessage({ message: { name, message, timeStamp, to } }));
       });
 
+      socketRef.current.on('updateMessagesHistory', (messages: Message[]) => {
+        dispatch(updateMessagesHistory({ messages }));
+        dispatch(showConversation()); // Show the conversation in the group chat
+      });
+
       socketRef.current.on('userActivity', users => {
         dispatch(updateUsers({ users })); // Update online users list on the state
       });
@@ -67,9 +71,11 @@ function App() {
     <>
       <MenuAppBar socketRef={socketRef} />
       <div className='App'>
-        <Chat />
         <UsersList />
-        <SendMessage socketRef={socketRef} />
+        <div className='chat-area'>
+          <Chat />
+          <SendMessage socketRef={socketRef} />
+        </div>
       </div>
     </>
   );

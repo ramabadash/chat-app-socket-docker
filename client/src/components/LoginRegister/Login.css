@@ -1,0 +1,66 @@
+.login-container {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: 70vh;
+  max-height: 70vh;
+  margin: 5vh auto;
+  padding: 1em;
+  text-align: center;
+  background-color: rgba(1, 39, 95, 0.11);
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container h1 {
+  color: whitesmoke;
+  margin-bottom: 1em;
+}
+
+#input-with-icon-textfield {
+  width: 80%;
+  height: 10%;
+  font-size: 1.25em;
+  color: #222;
+  font-family: 'PT Sans Narrow', sans-serif !important;
+  margin-bottom: 1vh;
+}
+
+.user-icon {
+  font-size: 1.15em !important;
+}
+
+.input-adornment {
+  font-size: 1.5em !important;
+  font-family: 'PT Sans Narrow', sans-serif !important;
+}
+
+.login-btn,
+.to-register-btn,
+.to-login-btn {
+  color: #222 !important;
+  border-color: #222 !important;
+  border-width: 0.1em !important;
+  height: 5vh !important;
+  font-family: 'PT Sans Narrow', sans-serif !important;
+  font-size: 1em !important;
+  margin-top: 2em !important;
+}
+
+.to-register-btn,
+.to-login-btn {
+  border-color: whitesmoke !important;
+  color: whitesmoke !important;
+}
+
+.to-register-btn:hover,
+.to-login-btn:hover {
+  color: #222 !important;
+  border-color: #222 !important;
+}
+
+.login-btn:hover {
+  border-color: whitesmoke !important;
+  color: whitesmoke !important;
+  border-width: 0.1em !important;
+}

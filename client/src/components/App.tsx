@@ -7,11 +7,11 @@ import { io, Socket } from 'socket.io-client';
 import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/socket/types';
 /***** COMPONENTS *****/
 import UsersList from './Users/UsersList';
-import SendMessage from './SendMessage';
+import SendMessage from './SendMessages/SendMessage';
 import Chat from './Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
-import { updateUsers, getMessage, setTypingUser } from '../reducers/chatReducer';
+import { updateUsers, getMessage, setTypingUser, showConversation } from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 
@@ -50,6 +50,7 @@ function App() {
         messages.forEach((message: Message) => {
           dispatch(getMessage({ message }));
         });
+        dispatch(showConversation()); // Show the conversation in the group chat
       });
 
       socketRef.current.on('userActivity', users => {

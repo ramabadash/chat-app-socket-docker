@@ -8,7 +8,7 @@ import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/s
 /***** COMPONENTS *****/
 import UsersList from './Users/UsersList';
 import SendMessage from './SendMessages/SendMessage';
-import Chat from './Chat';
+import Chat from './Chat/Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
 import {
@@ -71,9 +71,11 @@ function App() {
     <>
       <MenuAppBar socketRef={socketRef} />
       <div className='App'>
-        <Chat />
         <UsersList />
-        <SendMessage socketRef={socketRef} />
+        <div className='chat-area'>
+          <Chat />
+          <SendMessage socketRef={socketRef} />
+        </div>
       </div>
     </>
   );

@@ -33,19 +33,37 @@ export const chatSlice = createSlice({
     },
 
     getMessage: (state, { payload }: PayloadAction<{ message: Message }>) => {
+      const messageContent = payload.message.message;
+      const sender = payload.message.name;
+      const receiver = payload.message.to;
+      const currentRoom = current(state).room;
+
       // Handle unread messages
       let newUnreadMessages = { ...current(state).unreadMessages }; // Clone unreadMessages
-      if (payload.message.name !== state.room || payload.message.name === state.username) {
+      const messageFromTheGroup =
+        receiver === 'Group' && currentRoom !== 'Group' && sender !== state.username;
+      const messageFromAnotherRoomNotUserActivity =
+        sender !== currentRoom &&
+        sender !== state.username &&
+        messageContent !== 'Enter to the chat' &&
+        messageContent !== 'disconnected';
+
+      if (messageFromAnotherRoomNotUserActivity || messageFromTheGroup) {
+        let userToAddNotification = sender;
+
+        if (receiver === 'Group') {
+          userToAddNotification = 'Group';
+        }
         // Message is not for current room
-        if (newUnreadMessages.hasOwnProperty(payload.message.name)) {
-          newUnreadMessages[payload.message.name] += 1; // Already have unread messages
+        if (newUnreadMessages.hasOwnProperty(userToAddNotification)) {
+          newUnreadMessages[userToAddNotification] += 1; // Already have unread messages
         } else {
-          newUnreadMessages[payload.message.name] = 1; // New unread message
+          newUnreadMessages[userToAddNotification] = 1; // New unread message
         }
       }
 
       // Handle chat
-      if (payload.message.to === state.room) {
+      if (receiver === currentRoom) {
         // Message to the current user in the current room
         return {
           ...state,

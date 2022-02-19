@@ -28,6 +28,7 @@ export const onConnection = (socket: SocketType) => {
     message: 'Enter to the chat',
   });
 
+  MESSAGES.push({ name, message: 'Enter to the chat', to: '', timeStamp: '' }); // Add "user join" message to the messages list
   io.emit('userActivity', USERS); // Send user activity details
 
   /***** ON MESSAGE *****/

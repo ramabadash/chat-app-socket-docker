@@ -78,6 +78,12 @@ h3 {
   margin-right: 4px;
 }
 
+.users-header {
+  background-color: rgb(211, 80, 32);
+  padding: 0.15em;
+  border-radius: 8px 8px 8px 8px;
+}
+
 @media only screen and (max-width: 600px) {
   /*Big smartphones [426px -> 600px]*/
   .users-list-container li img {

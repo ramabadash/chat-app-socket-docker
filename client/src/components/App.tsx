@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 /***** IO *****/
 import { io, Socket } from 'socket.io-client';
 /***** TYPES *****/
-import { ServerToClientEvents, ClientToServerEvents } from '../@types/socket/types';
+import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/socket/types';
 /***** COMPONENTS *****/
 import UsersList from './Users/UsersList';
 import SendMessage from './SendMessage';
@@ -44,6 +44,12 @@ function App() {
 
       socketRef.current.on('replay', ({ name, message, timeStamp, to }) => {
         dispatch(getMessage({ message: { name, message, timeStamp, to } }));
+      });
+
+      socketRef.current.on('updateMessagesHistory', (messages: Message[]) => {
+        messages.forEach((message: Message) => {
+          dispatch(getMessage({ message }));
+        });
       });
 
       socketRef.current.on('userActivity', users => {

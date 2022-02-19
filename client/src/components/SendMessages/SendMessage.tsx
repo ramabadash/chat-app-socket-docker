@@ -2,23 +2,17 @@ import React, { useState } from 'react';
 /***** IO *****/
 import { Socket } from 'socket.io-client';
 /***** REDUX *****/
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 /***** STYLE *****/
-import '../styles/SendMessage.css';
+import './SendMessage.css';
 /***** POP-UP MESSAGES *****/
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 /***** TYPES *****/
-import {
-  ServerToClientEvents,
-  ClientToServerEvents,
-  Message,
-} from '../@types/socket/types';
+import { ServerToClientEvents, ClientToServerEvents, Message } from '../../@types/socket/types';
 
 interface SendMessageProp {
-  socketRef: React.MutableRefObject<
-    Socket<ServerToClientEvents, ClientToServerEvents> | undefined
-  >;
+  socketRef: React.MutableRefObject<Socket<ServerToClientEvents, ClientToServerEvents> | undefined>;
 }
 const notyf = new Notyf();
 
@@ -36,15 +30,12 @@ function SendMessage({ socketRef }: SendMessageProp) {
     to: room,
   });
 
-  const [stopTypingTimeout, setStopTypingTimeout] =
-    useState<NodeJS.Timeout | null>(null);
+  const [stopTypingTimeout, setStopTypingTimeout] = useState<NodeJS.Timeout | null>(null);
 
   /***** FUNCTIONS *****/
   // Send message
   const onMessageSubmit = (
-    e:
-      | React.MouseEvent<HTMLSpanElement, MouseEvent>
-      | React.KeyboardEvent<HTMLTextAreaElement>
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent> | React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     e.preventDefault();
     if (message.message) {
@@ -87,20 +78,14 @@ function SendMessage({ socketRef }: SendMessageProp) {
         className='message-textarea'
         placeholder='Enter your message here'
         value={message.message}
-        onChange={e => {
-          handleTyping(e);
-        }}
+        onChange={handleTyping}
         onKeyPress={e => {
           if (e.key === 'Enter' && !e.shiftKey) {
             onMessageSubmit(e);
           }
         }}
       />
-      <span
-        id='send-btn'
-        className='material-icons'
-        onClick={e => onMessageSubmit(e)}
-      >
+      <span id='send-btn' className='material-icons' onClick={e => onMessageSubmit(e)}>
         send
       </span>
     </div>

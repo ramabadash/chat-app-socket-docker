@@ -11,12 +11,7 @@ interface ChatUserMessageProp {
 
 /* ---------------------- COMPONENT ----------------------  */
 
-function ChatUserMessage({
-  name,
-  message,
-  timeStamp,
-  to,
-}: ChatUserMessageProp) {
+function ChatUserMessage({ name, message, timeStamp, to }: ChatUserMessageProp) {
   /***** STATE *****/
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
@@ -24,9 +19,8 @@ function ChatUserMessage({
     <li className={`${username === name ? 'me' : 'you'}`}>
       <div className='entete'>
         <span className={'status green'}></span>
-        <h2>{name}</h2>{' '}
-        <h3>{to ? `[To ${to} - Private Message ]` : '[ To All ]'}</h3>{' '}
-        <h2>{timeStamp}</h2>
+        <h2>{name === username ? 'You' : name}</h2>{' '}
+        <h3>{to ? `[To ${to} - Private Message ]` : '[ To All ]'}</h3> <h2>{timeStamp}</h2>
       </div>
       <div className='message'>{message}</div>
     </li>

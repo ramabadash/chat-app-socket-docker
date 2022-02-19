@@ -13,10 +13,10 @@ import '../styles/Chat.css';
 
 function Chat() {
   /***** REFS *****/
-  const messageEl = useRef<HTMLDivElement | null>(null);
+  const messageEl = useRef<HTMLUListElement | null>(null);
 
   /***** STATE *****/
-  const chat = useAppSelector(({ chatReducer }) => chatReducer.chat);
+  const currentChat = useAppSelector(({ chatReducer }) => chatReducer.currentChat);
 
   /***** EFFECT *****/
   //Scroll down the massages list on new massages
@@ -32,10 +32,10 @@ function Chat() {
   }, []);
 
   return (
-    <div className='chat' ref={messageEl}>
+    <div className='chat'>
       <MessageDestination />
-      <ul className='chat-list'>
-        {chat.map(({ name, message, timeStamp, to }) => {
+      <ul className='chat-list' ref={messageEl}>
+        {currentChat.map(({ name, message, timeStamp, to }) => {
           // Message from a user
           if (timeStamp) {
             return (
@@ -48,9 +48,7 @@ function Chat() {
               />
             );
           } else {
-            return (
-              <ChatUserActivity key={nanoid()} name={name} message={message} />
-            ); // User enter or left the chat message
+            return <ChatUserActivity key={nanoid()} name={name} message={message} />; // User enter or left the chat message
           }
         })}
       </ul>

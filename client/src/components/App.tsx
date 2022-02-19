@@ -4,21 +4,14 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 /***** IO *****/
 import { io, Socket } from 'socket.io-client';
 /***** TYPES *****/
-import {
-  ServerToClientEvents,
-  ClientToServerEvents,
-} from '../@types/socket/types';
+import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/socket/types';
 /***** COMPONENTS *****/
-import UsersList from './UsersList';
-import SendMessage from './SendMessage';
+import UsersList from './Users/UsersList';
+import SendMessage from './SendMessages/SendMessage';
 import Chat from './Chat';
 import MenuAppBar from './MenuAppBar';
 /***** ACTIONS *****/
-import {
-  updateUsers,
-  getMessage,
-  setTypingUser,
-} from '../reducers/chatReducer';
+import { updateUsers, getMessage, setTypingUser, showConversation } from '../reducers/chatReducer';
 /***** STYLES *****/
 import '../styles/App.css';
 
@@ -51,6 +44,13 @@ function App() {
 
       socketRef.current.on('replay', ({ name, message, timeStamp, to }) => {
         dispatch(getMessage({ message: { name, message, timeStamp, to } }));
+      });
+
+      socketRef.current.on('updateMessagesHistory', (messages: Message[]) => {
+        messages.forEach((message: Message) => {
+          dispatch(getMessage({ message }));
+        });
+        dispatch(showConversation()); // Show the conversation in the group chat
       });
 
       socketRef.current.on('userActivity', users => {

@@ -45,6 +45,7 @@ export const chatSlice = createSlice({
       const messageFromAnotherRoomNotUserActivity =
         sender !== currentRoom &&
         sender !== state.username &&
+        receiver !== 'Group' &&
         messageContent !== 'Enter to the chat' &&
         messageContent !== 'disconnected';
 
@@ -63,7 +64,7 @@ export const chatSlice = createSlice({
       }
 
       // Handle chat
-      if (receiver === currentRoom) {
+      if (receiver === currentRoom || (sender === currentRoom && receiver === state.username)) {
         // Message to the current user in the current room
         return {
           ...state,

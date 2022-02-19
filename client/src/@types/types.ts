@@ -10,6 +10,8 @@ export interface ChatState {
   currentChat: Message[];
   typingUser: string;
   unreadMessages: UserUnreadMessages;
+  groupChats: GroupChat[];
 }
 
+type GroupChat = { name: string; id: string };
 type UserUnreadMessages = { [username: string]: number };

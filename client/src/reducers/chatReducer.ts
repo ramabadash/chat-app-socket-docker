@@ -12,6 +12,7 @@ export const initialState: ChatState = {
   currentChat: [],
   typingUser: '',
   unreadMessages: {},
+  groupChats: [{ name: 'Group', id: 'Group' }],
 };
 
 // Slice

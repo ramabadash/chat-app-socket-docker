@@ -107,4 +107,35 @@ describe('🔹 Socket testing ', () => {
       }, 500);
     });
   });
+
+  /* ----- DISCONNECTED -----*/
+  describe('🔸 Disconnected: ', () => {
+    test('Should change user to offline', () => {
+      clientSocket.emit('disconnected');
+      setTimeout(() => {
+        const thisUser = USERS.find(user => user.name === userMockData.username);
+        expect(thisUser.status).toBe('offline');
+        done();
+      }, 500);
+    });
+
+    test("Should remove user's id", () => {
+      clientSocket.emit('disconnected');
+      setTimeout(() => {
+        const thisUser = USERS.find(user => user.name === userMockData.username);
+        expect(thisUser.id).toBe('');
+      }, 500);
+    });
+
+    test('Should send "user disconnected" message', () => {
+      clientSocket.emit('message', messageMockData);
+      const currentMessage = MESSAGES[2];
+      setTimeout(() => {
+        expect(currentMessage.name).toBe(messageMockData.name);
+        expect(currentMessage.message).toBe('disconnected');
+        expect(currentMessage.to).toBe('Group');
+        done();
+      }, 500);
+    });
+  });
 });

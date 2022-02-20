@@ -13,7 +13,7 @@ import {
 // Create server
 const app = express();
 const PORT: Number = 4000;
-const http = require('http').createServer(app);
+export const http = require('http').createServer(app);
 // io
 export const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents>(http, {
   cors: { origin: ['http://localhost:3000'] },
@@ -47,6 +47,6 @@ app.use('/users', userRouter);
 
 app.use(errorHandler);
 
-http.listen(PORT, () => {
+export const httpServer = http.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}`);
 });

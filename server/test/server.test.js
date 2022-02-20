@@ -27,6 +27,23 @@ describe('Login & Register', () => {
       expect(thisUser).toBeUndefined();
     });
   });
+  /* ----- LOGIN -----*/
+  describe('Login', () => {
+    //OK
+    test('Should login with valid data and get 200 ok and accessToken as cookies', async () => {
+      const response = await request(http).post('/users/login').send(userMockData);
+      expect(response.statusCode).toBe(200);
+      expect(response.headers['set-cookie'][0]).toMatch(/accessToken=\w+.\w+.\w+/);
+      expect(response.text).toBe(userMockData.username);
+    });
+    //Bad details
+    test('Should throw 400 bad request with wrong username or password', async () => {
+      const response = await request(http)
+        .post('/users/login')
+        .send({ username: 'test-user', password: 'test12' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
 });
 
 describe('Socket testing', () => {

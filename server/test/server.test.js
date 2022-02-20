@@ -5,13 +5,15 @@ const http = require('../build/server').http; // server
 const listen = require('../build/server').httpServer; // Listening functions
 const io = require('../build/server').io;
 const USERS = require('../build/db/users').default; // USERS db
+const MESSAGES = require('../build/db/messages').default; // MESSAGES db
 // Mock data
 const userMockData = { username: 'test-user', password: 'test12345' };
+const messageMockData = { name: 'test-user', message: 'Hello world', to: 'rama' };
 
 /* ---------- LOGIN & REGISTER ----------*/
-describe('Login & Register', () => {
+describe('🔹 Login & Register', () => {
   /* ----- REGISTER -----*/
-  describe('Register', () => {
+  describe('🔸 Register', () => {
     // OK
     test('Should register with valid data and get 200 ok', async () => {
       const response = await request(http).post('/users/register').send(userMockData);
@@ -30,7 +32,7 @@ describe('Login & Register', () => {
     });
   });
   /* ----- LOGIN -----*/
-  describe('Login', () => {
+  describe('🔸 Login', () => {
     //OK
     test('Should login with valid data and get 200 ok and accessToken as cookies', async () => {
       const response = await request(http).post('/users/login').send(userMockData);
@@ -49,7 +51,7 @@ describe('Login & Register', () => {
 });
 
 /* ---------- SOCKET ----------*/
-describe('Socket testing', () => {
+describe('🔹 Socket testing ', () => {
   let serverSocket, clientSocket;
 
   beforeAll(done => {
@@ -66,10 +68,11 @@ describe('Socket testing', () => {
   afterAll(() => {
     io.close();
     clientSocket.close();
+    listen.close();
   });
 
   /* ----- USERS -----*/
-  describe('Users: ', () => {
+  describe('🔸 Users:', () => {
     test('Should set user to online', () => {
       const thisUser = USERS.find(user => user.name === 'test-user');
       expect(thisUser.status).toBe('online');
@@ -81,4 +84,27 @@ describe('Socket testing', () => {
     });
   });
 
+  /* ----- MESSAGES -----*/
+  describe('🔸 Messages: ', () => {
+    test('Should save "user joined message" message to MESSAGES db', () => {
+      const currentMessage = MESSAGES[0];
+      setTimeout(() => {
+        expect(currentMessage.name).toBe(messageMockData.name);
+        expect(currentMessage.message).toBe('Enter to the chat');
+        expect(currentMessage.to).toBe('Group');
+        done();
+      }, 500);
+    });
+
+    test('Should save message to MESSAGES db', () => {
+      clientSocket.emit('message', messageMockData);
+      const currentMessage = MESSAGES[1];
+      setTimeout(() => {
+        expect(currentMessage.name).toBe(messageMockData.name);
+        expect(currentMessage.message).toBe(messageMockData.message);
+        expect(currentMessage.to).toBe(messageMockData.to);
+        done();
+      }, 500);
+    });
   });
+});

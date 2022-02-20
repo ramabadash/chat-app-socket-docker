@@ -32,6 +32,8 @@
 - **[Cors](https://www.npmjs.com/package/cors)**
 - **[JWT](https://jwt.io/) - To generate tokens**
 - **[Bcrypt](https://www.npmjs.com/package/bcrypt) - To encrypt passwords**
+- **[Jest](https://jestjs.io/docs/) - For testing**
+- **[Supertest](https://www.npmjs.com/package/supertest) - For testing**
 
 ---
 
@@ -101,7 +103,7 @@
 #### General:
 
 - **Cleaning logs and code in general 🧹🧼**
-- **Tests - front and back 💯**
+- **Tests - frontend 💯**
 - **Upload docker image to docker-hub 🐳**
 - **Deployment to heroku 🌎**
 - **Github workflows 🐱‍💻**
@@ -129,3 +131,13 @@
 ### <img src="./README-PICS/offline-user.png"/>
 
 ---
+
+## Testing 💯 -
+
+### Backend 💻
+
+### <img src="./README-PICS/testing-back.png"/>
+
+### Frontend 🖥
+
+#### Working on it 😋

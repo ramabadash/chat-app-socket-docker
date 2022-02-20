@@ -47,6 +47,6 @@ app.use('/users', userRouter);
 
 app.use(errorHandler);
 
-http.listen(PORT, () => {
+export const httpServer = http.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}`);
 });

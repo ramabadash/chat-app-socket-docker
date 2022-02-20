@@ -1,12 +1,14 @@
-const request = require('supertest');
+const Client = require('socket.io-client'); // Socket client
+const request = require('supertest'); // http requests
 // My app
-// import { http } from '../server'; // server
-const http = require('../build/server').http;
-// import { USERS } from '../db/users'; // USERS db
-const USERS = require('../build/db/users').default;
+const http = require('../build/server').http; // server
+const listen = require('../build/server').httpServer; // Listening functions
+const io = require('../build/server').io;
+const USERS = require('../build/db/users').default; // USERS db
 // Mock data
 const userMockData = { username: 'test-user', password: 'test12345' };
 
+/* ---------- LOGIN & REGISTER ----------*/
 describe('Login & Register', () => {
   /* ----- REGISTER -----*/
   describe('Register', () => {
@@ -46,5 +48,37 @@ describe('Login & Register', () => {
   });
 });
 
+/* ---------- SOCKET ----------*/
 describe('Socket testing', () => {
-  let io, serverSocket, clientSocket;
+  let serverSocket, clientSocket;
+
+  beforeAll(done => {
+    // Create client connection
+    clientSocket = new Client(`http://localhost:4000`, {
+      auth: { username: userMockData.username },
+    });
+    io.on('connection', socket => {
+      serverSocket = socket;
+      clientSocket.on('connect', done);
+    });
+  });
+
+  afterAll(() => {
+    io.close();
+    clientSocket.close();
+  });
+
+  /* ----- USERS -----*/
+  describe('Users: ', () => {
+    test('Should set user to online', () => {
+      const thisUser = USERS.find(user => user.name === 'test-user');
+      expect(thisUser.status).toBe('online');
+    });
+
+    test("Should set user's id", () => {
+      const thisUser = USERS.find(user => user.name === 'test-user');
+      expect(thisUser.id).not.toBe('');
+    });
+  });
+
+  });

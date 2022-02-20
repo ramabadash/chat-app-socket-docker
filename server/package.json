@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "ts-node server.ts",
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
-    "test": "jest --forceExit --verbose ./test"
+    "test": "tsc && jest --forceExit --verbose ./test"
   },
   "keywords": [],
   "author": "rama badash",

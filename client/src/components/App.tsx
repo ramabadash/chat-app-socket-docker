@@ -9,7 +9,7 @@ import { ServerToClientEvents, ClientToServerEvents, Message } from '../@types/s
 import UsersList from './Users/UsersList';
 import SendMessage from './SendMessages/SendMessage';
 import Chat from './Chat/Chat';
-import MenuAppBar from './MenuAppBar';
+import MenuAppBar from './NavBar/MenuAppBar';
 /***** ACTIONS *****/
 import {
   updateUsers,
@@ -33,6 +33,8 @@ function App() {
 
   /***** REFS *****/
   let socketRef = useRef<Socket<ServerToClientEvents, ClientToServerEvents>>();
+  const chatRef = useRef<HTMLDivElement | null>(null);
+  const usersRef = useRef<HTMLDivElement | null>(null);
 
   /***** EFFECT *****/
 
@@ -74,10 +76,10 @@ function App() {
 
   return (
     <>
-      <MenuAppBar socketRef={socketRef} />
+      <MenuAppBar socketRef={socketRef} chatRef={chatRef} usersRef={usersRef} />
       <div className='App'>
-        <UsersList />
-        <div className='chat-area'>
+        <UsersList reference={usersRef} />
+        <div className='chat-area' ref={chatRef}>
           <Chat />
           <SendMessage socketRef={socketRef} />
         </div>

@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import React, { useState } from 'react';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import axios from 'axios';
 /***** ACTIONS *****/
-import { userLogin } from '../reducers/chatReducer';
+import { userLogin } from '../../reducers/chatReducer';
 /***** COMPONENTS *****/
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,20 +15,25 @@ import Menu from '@mui/material/Menu';
 /***** IO *****/
 import { Socket } from 'socket.io-client';
 /***** TYPES *****/
-import { ServerToClientEvents, ClientToServerEvents } from '../@types/socket/types';
+import './MenuAppBar.css';
+/***** TYPES *****/
+import { ServerToClientEvents, ClientToServerEvents } from '../../@types/socket/types';
 
-interface SocketProp {
+interface Prop {
   socketRef?: React.MutableRefObject<
     Socket<ServerToClientEvents, ClientToServerEvents> | undefined
   >;
+  chatRef?: React.MutableRefObject<HTMLDivElement | null>;
+  usersRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 /* ---------------------- COMPONENT ----------------------  */
 
-function MenuAppBar({ socketRef }: SocketProp) {
+function MenuAppBar({ socketRef, chatRef, usersRef }: Prop) {
   /***** STATE *****/
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
   const [auth, setAuth] = React.useState(username ? true : false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [showing, setShowing] = useState('chat');
 
   /***** FUNCTIONS *****/
   const dispatch = useAppDispatch();
@@ -63,17 +68,38 @@ function MenuAppBar({ socketRef }: SocketProp) {
     setAnchorEl(null);
   };
 
+  const handleSwitchClick = () => {
+    setShowing(prevShowing => (prevShowing === 'chat' ? 'users' : 'chat'));
+    if (chatRef && chatRef.current && usersRef && usersRef.current) {
+      chatRef.current.classList.toggle('hide');
+      usersRef.current.classList.toggle('hide');
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             <span className='material-icons'>forum</span>
-            {'  '} Chat
+            {'  '} Chattr.io
           </Typography>
           {auth && (
             <div>
-              <span style={{ fontSize: '16px' }}>Hello {username} !</span>
+              {/* User name */}
+              <span className='hello-user'>Hello {username} !</span>
+              {/* Switch screens */}
+              <span className='chat-or-users' onClick={handleSwitchClick}>
+                {showing === 'chat' ? (
+                  <span>
+                    <i className='fa-solid fa-comments'></i> chat
+                  </span>
+                ) : (
+                  <span>
+                    <i className='fa-solid fa-users'></i> users
+                  </span>
+                )}
+              </span>
               <IconButton
                 size='large'
                 aria-label='account of current user'

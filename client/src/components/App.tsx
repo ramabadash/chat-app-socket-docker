@@ -64,6 +64,11 @@ function App() {
       socketRef.current.on('userTypingReplay', ({ name, type }) => {
         dispatch(setTypingUser({ name, type }));
       });
+
+      return () => {
+        socketRef.current?.emit('disconnect');
+        socketRef.current?.close();
+      };
     }
   }, []);
 

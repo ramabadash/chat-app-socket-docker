@@ -10,6 +10,7 @@ export interface ServerToClientEvents {
 export interface ClientToServerEvents {
   message: ({ name, message, to }: Message) => void;
   userTyping: ({ name, type }: { name: string; type: boolean }) => void;
+  disconnect: () => void;
 }
 
 export interface InterServerEvents {

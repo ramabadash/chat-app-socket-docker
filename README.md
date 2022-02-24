@@ -91,7 +91,6 @@
 - **Adding custom group chats 👥**
 - **Using the tokens to auth when sending messages** 🚫
 - **Go to last unread message page position when entering to conversation** ↕
-- **Mobile design** 📱
 - **Sending the typing signal just to the current room** 💬
 
 #### Back:
@@ -130,6 +129,10 @@
 
 ### <img src="./README-PICS/offline-user.png"/>
 
+### Mobile 📱
+
+### <img src="./README-PICS/mobile-login.png"/><img src="./README-PICS/mobile-chat.png"/><img src="./README-PICS/mobile-users.png"/>
+
 ---
 
 ## Testing 💯 -
@@ -141,3 +144,9 @@
 ### Frontend 🖥
 
 #### Working on it 😋
+
+---
+
+## Graphs 📈 -
+
+<img src="./README-PICS/login-logout-graph.png"/><img src="./README-PICS/sending-message-graph.png"/>

@@ -1,0 +1,28 @@
+.hello-user {
+  font-size: 16px;
+}
+
+.chat-or-users {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  /*Big smartphones [426px -> 600px]*/
+  .hello-user {
+    display: none;
+  }
+
+  .chat-or-users {
+    display: inline-flex;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  /*Small smartphones [325px -> 425px]*/
+  .hello-user {
+    display: none;
+  }
+  .chat-or-users {
+    display: inline-flex;
+  }
+}

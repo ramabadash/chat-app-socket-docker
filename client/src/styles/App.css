@@ -54,3 +54,72 @@
   height: 9%;
   width: 100%;
 }
+
+@media only screen and (max-width: 600px) {
+  /*Big smartphones [426px -> 600px]*/
+
+  .App {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .chat-area {
+    width: 100vw;
+    height: 92vh;
+    margin: 0;
+  }
+
+  .chat {
+    color: whitesmoke;
+    height: 88%;
+    width: 96vw;
+  }
+
+  .users-list-container {
+    width: 100vw;
+    height: 92vh;
+    margin: 0;
+  }
+
+  .users-list-container ul {
+    height: 45vh;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  /*Small smartphones [325px -> 425px]*/
+
+  .App {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .chat-area {
+    width: 100vw;
+    height: 92vh;
+    margin: 0;
+  }
+
+  .chat {
+    color: whitesmoke;
+    height: 88%;
+    width: 96vw;
+  }
+
+  .users-list-container {
+    width: 100vw;
+    height: 92vh;
+    margin: 0;
+  }
+  .users-list-container ul {
+    height: 45vh;
+  }
+}

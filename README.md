@@ -141,3 +141,9 @@
 ### Frontend 🖥
 
 #### Working on it 😋
+
+---
+
+## Graphs 📈 -
+
+<img src="./README-PICS/login-logout-graph.png"/><img src="./README-PICS/sending-message-graph.png"/>

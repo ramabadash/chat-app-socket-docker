@@ -9,7 +9,7 @@ import './UsersList.css';
 
 /* ---------------------- COMPONENT ----------------------  */
 
-function UsersList() {
+function UsersList({ reference }: { reference: React.MutableRefObject<HTMLDivElement | null> }) {
   /***** STATE *****/
   const connectedUsers = useAppSelector(({ chatReducer }) => chatReducer.connectedUsers);
   const groups = useAppSelector(({ chatReducer }) => chatReducer.groupChats);
@@ -17,7 +17,7 @@ function UsersList() {
   const username = useAppSelector(({ chatReducer }) => chatReducer.username);
 
   return (
-    <div className='users-list-container'>
+    <div className='users-list-container hide' ref={reference}>
       <ul className='direct-messages'>
         <h2 className='users-header'>Direct messages:</h2>
         {connectedUsers.map(({ id, name, status }) => {

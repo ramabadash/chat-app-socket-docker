@@ -10,7 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import MenuAppBar from '../MenuAppBar';
+import MenuAppBar from '../NavBar/MenuAppBar';
 /***** STYLE *****/
 import './Login.css';
 /***** POP-UP MESSAGES *****/
